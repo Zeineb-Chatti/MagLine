@@ -8,9 +8,9 @@ from typing import List, Set, Dict, Tuple
 import logging
 from datetime import datetime
 
-# -------------------------------
+
 # Configuration
-# -------------------------------
+
 MODEL_ID = "Nucha/Nucha_SkillNER_BERT"
 MAX_SKILL_LENGTH = 50
 MIN_SKILL_LENGTH = 2
@@ -31,9 +31,8 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# -------------------------------
 # Model Initialization
-# -------------------------------
+
 try:
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
     model = AutoModelForTokenClassification.from_pretrained(MODEL_ID)
@@ -53,9 +52,9 @@ except Exception as e:
     logger.error(f"Model initialization failed: {str(e)}")
     raise
 
-# -------------------------------
-# Skill Dictionary (Unchanged)
-# -------------------------------
+
+# Skill Dictionary 
+
 manual_skill_dictionary = [
     # Programming Languages
     "c", "c++", "java", "python", "javascript", "typescript", "go", "rust",
@@ -101,9 +100,9 @@ manual_skill_dictionary = [
 
 manual_skill_set = {skill.lower() for skill in manual_skill_dictionary}
 
-# -------------------------------
-# Blacklist System (Unchanged)
-# -------------------------------
+
+# Blacklist System
+
 base_blacklist = {
     "skills", "languages", "english", "contact", "email", "phone",
     "resume", "work", "job", "company", "organization", "french",
@@ -150,9 +149,9 @@ tech_capitalization = {
 }
 
 
-# -------------------------------
-# Updated Helper Functions
-# -------------------------------
+
+# Helper Functions
+
 def extract_text(path: str) -> str:
     """Enhanced PDF text extraction with better cleaning."""
     try:
@@ -342,9 +341,9 @@ def categorize_skill(skill: str) -> str:
     return 'Other'
 
 
-# -------------------------------
+
 # Updated API Endpoints
-# -------------------------------
+
 @app.route('/validate_cv', methods=['POST'])
 def validate_cv():
     """Enhanced CV validation endpoint."""
@@ -440,9 +439,9 @@ def extract_skills():
         return jsonify({'error': str(e)}), 500
 
 
-# -------------------------------
-# Unchanged Endpoints
-# -------------------------------
+
+# Endpoints
+
 @app.route('/extract_skills_from_text', methods=['POST'])
 def extract_skills_from_text_api():
     """Extract skills from plain text."""
