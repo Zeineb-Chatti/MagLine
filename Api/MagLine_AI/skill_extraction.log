@@ -1,0 +1,446 @@
+2025-07-17 03:16:58,013 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 03:16:58,038 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-17 03:16:58,039 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 03:16:58,040 - werkzeug - INFO -  * Restarting with stat
+2025-07-17 03:17:05,284 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 03:17:05,291 - werkzeug - WARNING -  * Debugger is active!
+2025-07-17 03:17:05,292 - werkzeug - INFO -  * Debugger PIN: 125-874-975
+2025-07-17 03:18:00,785 - __main__ - INFO - Extracting skills from text. Is job description: True
+2025-07-17 03:18:01,539 - __main__ - INFO - NER extracted 13 raw skills
+2025-07-17 03:18:01,540 - __main__ - INFO - AI skills after cleaning: 13
+2025-07-17 03:18:01,593 - __main__ - INFO - Dictionary skills found: 20
+2025-07-17 03:18:01,595 - __main__ - INFO - Total skills before validation: 22
+2025-07-17 03:18:01,597 - __main__ - INFO - Valid skills after filtering: 22
+2025-07-17 03:18:01,602 - __main__ - INFO - Extracted 22 skills in 0.82s: ['algorithms', 'api', 'aws', 'ci/cd', 'data structures', 'django', 'docker', 'flask', 'graphql', 'javascript']...
+2025-07-17 03:18:01,605 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 03:18:01] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-17 14:19:19,458 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 14:19:19,498 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-17 14:19:19,498 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:19:19,500 - werkzeug - INFO -  * Restarting with stat
+2025-07-17 14:19:26,829 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 14:19:26,838 - werkzeug - WARNING -  * Debugger is active!
+2025-07-17 14:19:26,839 - werkzeug - INFO -  * Debugger PIN: 125-874-975
+2025-07-17 14:20:44,945 - __main__ - INFO - Extracting skills from text. Is job description: True
+2025-07-17 14:20:45,628 - __main__ - INFO - NER extracted 3 raw skills
+2025-07-17 14:20:45,631 - __main__ - INFO - AI skills after cleaning: 3
+2025-07-17 14:20:45,722 - __main__ - INFO - Dictionary skills found: 3
+2025-07-17 14:20:45,722 - __main__ - INFO - Total skills before validation: 3
+2025-07-17 14:20:45,723 - __main__ - INFO - Valid skills after filtering: 3
+2025-07-17 14:20:45,723 - __main__ - INFO - Extracted 3 skills in 0.78s: ['css', 'python', 'sql']...
+2025-07-17 14:20:45,724 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:20:45] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-17 20:37:42,195 - werkzeug - INFO -  * Detected change in 'E:\\PycharmProject\\MagLine_AI\\app.py', reloading
+2025-07-17 20:37:45,171 - werkzeug - INFO -  * Restarting with stat
+2025-07-17 20:40:40,753 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 20:40:40,759 - werkzeug - WARNING -  * Debugger is active!
+2025-07-17 20:40:40,760 - werkzeug - INFO -  * Debugger PIN: 125-874-975
+2025-07-17 20:49:05,342 - werkzeug - INFO -  * Detected change in 'E:\\PycharmProject\\MagLine_AI\\app.py', reloading
+2025-07-17 20:50:16,940 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-17 20:50:16,948 - werkzeug - WARNING -  * Debugger is active!
+2025-07-17 20:50:16,950 - werkzeug - INFO -  * Debugger PIN: 125-874-975
+2025-07-17 23:15:51,105 - werkzeug - INFO -  * Detected change in 'E:\\PycharmProject\\MagLine_AI\\app.py', reloading
+2025-07-17 23:16:01,233 - __main__ - INFO - Model loaded successfully
+2025-07-18 02:32:25,093 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-18 02:32:25,103 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 02:32:25,104 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 02:34:09,446 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:34:09] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 02:41:17,803 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:41:17] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 02:47:07,352 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:47:07] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 02:47:55,136 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:47:55] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 02:54:32,380 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:54:32] "[33mPOST /extract_skills_from_text_with_location HTTP/1.1[0m" 404 -
+2025-07-18 02:57:35,817 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-18 02:57:35,826 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 02:57:35,826 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 02:58:05,559 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:58:05] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 02:59:12,628 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:59:12] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 02:59:30,419 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:59:30] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 02:59:56,740 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 02:59:56] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 03:00:21,173 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:00:21] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 03:00:52,845 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:00:52] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 03:01:44,636 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:01:44] "POST /extract_skills_from_text_with_location HTTP/1.1" 200 -
+2025-07-18 03:19:03,616 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:19:03] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:20:09,370 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-18 03:20:09,376 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 03:20:09,376 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 03:20:46,837 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:20:46] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:28:54,066 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:28:54] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:29:42,909 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:29:42] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:34:50,420 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:34:50] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:39:44,798 - __main__ - INFO - Successfully loaded NER model and tokenizer
+2025-07-18 03:39:44,804 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 03:39:44,804 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 03:40:31,171 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:40:31] "[33mPOST /extract_skills_from_text HTTP/1.1[0m" 404 -
+2025-07-18 03:54:09,386 - __main__ - INFO - Model loaded successfully
+2025-07-18 03:54:09,396 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 03:54:09,397 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 03:55:43,678 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:55:43,917 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:55:43] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:56:15,952 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:56:16,115 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:56:16] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:56:48,529 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:56:48,579 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:56:48] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:57:54,676 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:57:54,821 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:57:54] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:58:25,463 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:58:25,590 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:58:25] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:58:43,712 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:58:43,854 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:58:43] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:59:00,285 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:59:00,426 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:59:00] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 03:59:17,702 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 03:59:17,846 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 03:59:17] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 04:00:22,587 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 04:00:22,722 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 04:00:22] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 04:00:31,001 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 04:00:31,149 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 04:00:31] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 04:02:38,403 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 04:02:38,622 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 04:02:38] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 04:02:45,549 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 04:02:45,735 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 04:02:45] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 13:03:45,658 - __main__ - INFO - Model loaded successfully
+2025-07-18 13:03:45,669 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-18 13:03:45,670 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 14:53:21,156 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:53:21,845 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:53:21] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 14:54:49,847 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:54:50,048 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:54:50] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 14:55:08,953 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:55:09,113 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:09] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 14:55:37,838 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:55:38,031 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:38] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 14:55:48,855 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:55:49,000 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:48] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 14:55:57,811 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 14:55:58,025 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:58] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 15:00:46,302 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 15:00:46,527 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 15:00:46] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 15:02:16,778 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 15:02:16,893 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 15:02:16] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 16:12:34,794 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 16:12:34,859 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 16:12:34] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 16:12:47,811 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 16:12:47,850 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 16:12:47] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 20:48:23,862 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 20:48:23,937 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 20:48:23] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 21:32:34,845 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 21:32:35,034 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 21:32:35] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-18 21:33:42,591 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-18 21:33:42,712 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 21:33:42] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-19 19:18:16,516 - __main__ - INFO - Model loaded successfully
+2025-07-19 19:18:16,523 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 19:18:16,523 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 21:41:59,669 - __main__ - INFO - Model loaded successfully
+2025-07-19 21:41:59,680 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 21:41:59,680 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 21:42:11,223 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 21:42:11] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-19 21:42:54,402 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 21:42:54] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-19 21:44:03,794 - __main__ - INFO - Model loaded successfully
+2025-07-19 21:44:03,801 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 21:44:03,801 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 21:47:32,195 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 21:47:32] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-19 22:38:45,332 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:45] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:38:45,550 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:45] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:38:45,759 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:45] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:38:45,967 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:45] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-19 22:38:46,279 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:46] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:38:46,513 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:46] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:38:46,731 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:46] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:38:46,970 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:38:46] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-19 22:51:53,677 - __main__ - INFO - Model loaded successfully
+2025-07-19 22:51:53,686 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 22:51:53,686 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 22:52:20,109 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:20] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:52:20,329 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:20] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:52:20,541 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:20] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:52:20,804 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:20] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 22:52:21,025 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:21] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 22:52:21,360 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:21] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:52:21,581 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:21] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:52:21,800 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:21] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:52:22,051 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:22] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 22:52:22,267 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:52:22] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 22:58:51,564 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:51] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:58:51,801 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:51] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:58:52,104 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:52] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:58:52,348 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:52] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 22:58:52,592 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:52] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 22:58:52,943 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:52] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 22:58:53,162 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:53] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 22:58:53,381 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:53] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 22:58:53,624 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:53] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 22:58:53,849 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 22:58:53] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 23:14:04,892 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:04] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:14:05,121 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:05] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:14:05,342 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:05] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:14:05,609 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:05] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:14:05,822 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:05] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 23:14:06,161 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:06] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:14:06,382 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:06] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:14:06,607 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:06] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:14:06,891 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:06] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:14:07,143 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:14:07] "[31m[1mPOST /extract_skills HTTP/1.1[0m" 400 -
+2025-07-19 23:14:45,092 - __main__ - INFO - Model loaded successfully
+2025-07-19 23:14:45,101 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 23:14:45,102 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 23:16:02,713 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:02] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:16:02,930 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:02] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:16:03,149 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:03] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:16:03,386 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:03] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:16:03,622 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:16:06,376 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:06] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:16:06,831 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:06] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:16:07,051 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:07] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:16:07,268 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:07] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:16:07,509 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:07] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:16:07,742 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:16:08,933 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:16:08] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:30:54,083 - __main__ - INFO - Model loaded successfully
+2025-07-19 23:30:54,090 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 23:30:54,091 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 23:33:02,306 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:02] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:33:02,527 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:02] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:33:02,748 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:02] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:33:03,029 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:03] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:33:03,281 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:33:04,474 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:04] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:33:04,805 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:04] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:33:05,027 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:05] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:33:05,272 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:05] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:33:05,563 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:05] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:33:05,860 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:33:07,049 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:33:07] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:40:17,316 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:17] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:40:17,536 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:17] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:40:17,761 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:17] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:40:17,992 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:17] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:40:18,224 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:40:19,385 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:19] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:40:19,751 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:19] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:40:19,964 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:19] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:40:20,185 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:20] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:40:20,440 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:20] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:40:20,738 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:40:21,839 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:40:21] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:40:53,869 - __main__ - INFO - Model loaded successfully
+2025-07-19 23:40:53,877 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-19 23:40:53,877 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-19 23:41:57,194 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:57] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:41:57,411 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:57] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:41:57,618 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:57] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:41:57,845 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:57] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:41:58,061 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:41:58,475 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:58] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:41:58,804 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:58] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:41:59,035 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:59] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:41:59,269 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:59] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:41:59,518 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:41:59] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:41:59,749 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:42:00,089 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:42:00] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:56:40,925 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:40] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:56:41,144 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:41] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:56:41,376 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:41] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:56:41,627 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:41] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:56:41,866 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:56:42,175 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:42] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-19 23:56:42,843 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:42] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-19 23:56:43,077 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:43] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-19 23:56:43,299 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:43] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-19 23:56:43,541 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:43] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-19 23:56:43,758 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-19 23:56:44,048 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:56:44] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-21 16:49:12,319 - __main__ - INFO - Model loaded successfully
+2025-07-21 16:49:12,327 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-21 16:49:12,327 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-21 20:18:30,007 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:30] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-21 20:18:30,223 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:30] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-21 20:18:30,440 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:30] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-21 20:18:30,705 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:30] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-21 20:18:30,947 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-21 20:18:33,050 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:33] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-21 20:18:33,571 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:33] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-21 20:18:33,809 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:33] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-21 20:18:34,061 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:34] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-21 20:18:34,337 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:34] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-21 20:18:34,573 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-21 20:18:35,533 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:18:35] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-21 20:21:23,880 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-21 20:21:24,046 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:21:24] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-21 20:23:00,599 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:00] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-21 20:23:00,832 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:00] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-21 20:23:01,053 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:01] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-21 20:23:01,390 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:01] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-21 20:23:01,633 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-21 20:23:02,835 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:02] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-21 20:23:03,446 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:03] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-21 20:23:03,662 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:03] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-21 20:23:03,880 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:03] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-21 20:23:04,136 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:04] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-21 20:23:04,395 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-21 20:23:05,547 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:23:05] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-21 20:25:59,811 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-21 20:25:59,975 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 20:25:59] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-21 22:55:32,914 - __main__ - INFO - Model loaded successfully
+2025-07-21 22:55:32,925 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-21 22:55:32,926 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-22 03:35:11,796 - __main__ - INFO - Model loaded successfully
+2025-07-22 03:35:11,836 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-22 03:35:11,837 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-23 01:55:20,132 - __main__ - INFO - Model loaded successfully
+2025-07-23 01:55:20,143 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-23 01:55:20,143 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-23 03:16:40,295 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-23 03:16:40,710 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 03:16:40] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-23 03:17:06,755 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-23 03:17:06,859 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 03:17:06] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-23 03:35:57,230 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-23 03:35:57,307 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 03:35:57] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-26 14:19:55,202 - __main__ - INFO - Model loaded successfully
+2025-07-26 14:19:55,209 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-26 14:19:55,209 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-26 15:38:03,963 - __main__ - INFO - Model loaded successfully
+2025-07-26 15:38:04,000 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-26 15:38:04,000 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-26 21:12:02,380 - werkzeug - INFO - 127.0.0.1 - - [26/Jul/2025 21:12:02] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-26 21:12:02,713 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-26 21:12:03,982 - werkzeug - INFO - 127.0.0.1 - - [26/Jul/2025 21:12:03] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-27 00:44:02,763 - __main__ - INFO - Model loaded successfully
+2025-07-27 00:44:02,781 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-27 00:44:02,782 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-27 01:14:22,372 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:14:22,633 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:14:22] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-27 01:30:22,963 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:30:23,149 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:30:23] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-27 01:31:35,200 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:31:35,321 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:31:35] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-27 01:43:59,224 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:43:59,311 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:43:59] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-27 01:50:03,816 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:50:03,962 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:50:03] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-27 01:56:44,117 - __main__ - INFO - Starting skill extraction (JD: True)
+2025-07-27 01:56:44,276 - werkzeug - INFO - 127.0.0.1 - - [27/Jul/2025 01:56:44] "POST /extract_skills_from_text HTTP/1.1" 200 -
+2025-07-29 02:23:30,251 - __main__ - INFO - Model loaded successfully
+2025-07-29 02:23:30,261 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-29 02:23:30,261 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 02:25:05,226 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:05] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-29 02:25:05,445 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:05] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:25:05,661 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:05] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-29 02:25:05,931 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:05] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:25:06,174 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:25:07,422 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:07] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:25:12,743 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:12] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-29 02:25:12,975 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:12] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:25:13,194 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:13] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-29 02:25:13,446 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:13] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:25:13,671 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:25:14,036 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:25:14] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:31:22,430 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:22] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-29 02:31:22,652 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:22] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:31:22,871 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:22] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-29 02:31:23,140 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:23] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:31:23,396 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:31:23,802 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:23] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:31:24,770 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:24] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-29 02:31:25,003 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:25] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:31:25,226 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:25] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-29 02:31:25,472 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:25] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:31:25,723 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:31:26,097 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:31:26] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:37:58,355 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:37:58] "[33mHEAD / HTTP/1.1[0m" 404 -
+2025-07-29 02:37:58,584 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:37:58] "[31m[1mHEAD /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:37:58,814 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:37:58] "[31m[1mHEAD /extract_skills HTTP/1.1[0m" 405 -
+2025-07-29 02:37:59,060 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:37:59] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:37:59,281 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:37:59,572 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:37:59] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:39:20,203 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:39:20] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:39:20,438 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:39:20,564 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:39:20] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:52:22,604 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:52:22] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-29 02:52:22,680 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:52:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-29 02:53:44,425 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:53:44] "[31m[1mGET /validate_cv HTTP/1.1[0m" 405 -
+2025-07-29 02:56:23,381 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:56:23] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:56:23,654 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:56:23,864 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:56:23] "POST /extract_skills HTTP/1.1" 200 -
+2025-07-29 02:56:42,110 - __main__ - INFO - Model loaded successfully
+2025-07-29 02:56:42,126 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.100.171:5001
+2025-07-29 02:56:42,127 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 02:56:42,129 - werkzeug - INFO -  * Restarting with stat
+2025-07-29 02:56:50,558 - __main__ - INFO - Model loaded successfully
+2025-07-29 02:56:50,565 - werkzeug - WARNING -  * Debugger is active!
+2025-07-29 02:56:50,593 - werkzeug - INFO -  * Debugger PIN: 125-874-975
+2025-07-29 02:56:56,270 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:56:56] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-29 02:57:09,005 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:57:09] "[31m[1mPOST /validate_cv HTTP/1.1[0m" 400 -
+2025-07-29 02:57:18,413 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:57:18,795 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:57:18] "POST /validate_cv HTTP/1.1" 200 -
+2025-07-29 02:57:19,028 - __main__ - INFO - Starting skill extraction (JD: False)
+2025-07-29 02:57:19,307 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 02:57:19] "POST /extract_skills HTTP/1.1" 200 -

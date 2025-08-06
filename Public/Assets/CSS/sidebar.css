@@ -1,0 +1,66 @@
+/* Dark Theme Sidebar Styles */
+.recruiter-sidebar {
+    /* Remove fixed positioning to integrate it into the main flow */
+    /* position: fixed; */ 
+    /* left: 0; */
+    /* top: 70px; */ /* This will be handled by the main layout */
+
+    width: 250px;
+    /* height: calc(100vh - 70px); */ /* Remove this fixed height */
+    
+    background: var(--dark-card);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    
+    /* Remove overflow-y: auto; to prevent sidebar scrollbar */
+    /* overflow-y: auto; */ 
+    
+    z-index: 900;
+    /* transition: transform 0.3s ease; */ /* Keep for mobile responsiveness */
+    border-right: 1px solid var(--dark-border);
+    padding: 1.5rem 0;
+    
+    /* Add flex properties to make content naturally fit */
+    display: flex; /* Added to make sidebar internal content flexible */
+    flex-direction: column; /* Added */
+}
+
+/* Ensure the navigation within the sidebar takes available space if needed, but not forcing a scroll */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    /* flex-grow: 1; Uncomment if you want it to fill available space, but be careful with total content height */
+}
+
+/* No changes needed for .nav-section, .section-title, .nav-item, .nav-item a, .nav-item a:hover, .nav-item.active a, .nav-item a.highlight-item, .nav-item a.highlight-item:hover, .nav-item i, .nav-item span, .badge */
+
+/* Mobile Responsiveness for Sidebar: KEEP THESE! */
+@media (max-width: 992px) {
+    .recruiter-sidebar {
+        position: fixed; /* Re-add fixed for mobile to slide out */
+        top: 70px; /* Keep consistent with header height */
+        height: calc(100vh - 70px); /* Re-add height for mobile to be full screen */
+        transform: translateX(-100%);
+        z-index: 1001;
+    }
+    
+    .recruiter-sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        display: none;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
