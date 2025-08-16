@@ -108,8 +108,6 @@ $success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    
-    // In Candidate_profile.php, replace the CV upload section with this:
 
 if (isset($_FILES['cv'])) {
     try {
@@ -148,7 +146,7 @@ if (isset($_FILES['cv'])) {
             throw new Exception("Failed to upload file");
         }
         
-        // Validate the CV using Flask API (same as setup)
+        // Validate the CV using Flask API
         $cvValidation = validateCV($uploadPath);
         if (!$cvValidation['valid']) {
             unlink($uploadPath);
@@ -168,7 +166,7 @@ if (isset($_FILES['cv'])) {
         $stmt = $pdo->prepare("INSERT INTO resumes (user_id, filename, uploaded_at) VALUES (?, ?, NOW())");
         $stmt->execute([$candidateId, $newFilename]);
         
-        // Process extracted skills (same as setup)
+        // Process extracted skills 
         $extractedSkillIds = [];
         foreach ($extractedSkills as $skillName) {
             $stmt = $pdo->prepare("SELECT id FROM skills WHERE LOWER(name) = LOWER(?) LIMIT 1");
@@ -183,12 +181,12 @@ if (isset($_FILES['cv'])) {
             $extractedSkillIds[] = (int) $skillId;
         }
         
-        // Get current CV-extracted skills
+        
         $stmt = $pdo->prepare("SELECT skill_id FROM user_skills WHERE user_id = ? AND source = 'cv'");
         $stmt->execute([$candidateId]);
         $currentCvSkills = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
         
-        // Delete skills that are no longer in the CV
+       
         $toDelete = array_diff($currentCvSkills, $extractedSkillIds);
         if (!empty($toDelete)) {
             $placeholders = implode(',', array_fill(0, count($toDelete), '?'));
@@ -231,10 +229,8 @@ if (isset($_POST['update_profile'])) {
     $linkedin = $_POST['linkedin'] ?? '';
     
     try {
-        // Start transaction
         $pdo->beginTransaction();
-        
-        // Get current location and coordinates
+
         $stmt = $pdo->prepare("SELECT location, latitude, longitude FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         $currentData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -243,24 +239,20 @@ if (isset($_POST['update_profile'])) {
         $currentLat = $currentData['latitude'] ?? null;
         $currentLng = $currentData['longitude'] ?? null;
         
-        // Initialize with current coordinates
         $latitude = $currentLat;
         $longitude = $currentLng;
-        
-        // Only geocode if location changed
+ 
         if ($newLocation !== $currentLocation) {
             if (!empty(trim($newLocation))) {
                 $coordinates = geocodeLocation($newLocation);
                 $latitude = $coordinates['latitude'] ?? null;
                 $longitude = $coordinates['longitude'] ?? null;
             } else {
-                // Location was cleared
                 $latitude = null;
                 $longitude = null;
             }
         }
-        
-        // Update profile with coordinates
+
         $stmt = $pdo->prepare("
             UPDATE users SET 
                 name = ?, 
@@ -304,7 +296,6 @@ if (isset($_POST['update_profile'])) {
 }
 
 try {
-    // Get candidate profile data
     $stmt = $pdo->prepare("SELECT name, email, location, phone, about, linkedin, created_at, photo FROM users WHERE id = ?");
     $stmt->execute([$candidateId]);
     $candidate = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -320,28 +311,22 @@ try {
     if (!isset($_SESSION['user_photo'])) {
         $_SESSION['user_photo'] = $candidate['photo'];
     }
-
- // Replace the skills query with:
 $stmt = $pdo->prepare("SELECT s.id, s.name, us.source FROM user_skills us JOIN skills s ON us.skill_id = s.id WHERE us.user_id = ?");
 $stmt->execute([$candidateId]);
 $currentSkills = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $currentSkillIds = array_column($currentSkills, 'id');
 
-// Separate CV and manual skills
 $cvSkills = array_filter($currentSkills, function($skill) { return $skill['source'] === 'cv'; });
 $manualSkills = array_filter($currentSkills, function($skill) { return $skill['source'] === 'manual'; });
 
-    // Get all available skills for selection
     $stmt = $pdo->prepare("SELECT id, name FROM skills ORDER BY name");
     $stmt->execute();
     $allSkills = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Get latest CV
     $stmt = $pdo->prepare("SELECT filename, uploaded_at FROM resumes WHERE user_id = ? ORDER BY uploaded_at DESC LIMIT 1");
     $stmt->execute([$candidateId]);
     $resume = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Get application count
     $stmt = $pdo->prepare("SELECT COUNT(*) as count FROM applications WHERE candidate_id = ?");
     $stmt->execute([$candidateId]);
     $applicationCount = $stmt->fetch(PDO::FETCH_ASSOC)['count'] ?? 0;
@@ -902,7 +887,6 @@ $memberSince = date('F Y', strtotime($candidate['created_at']));
             content.classList.toggle('active');
         }
         
-        // Initialize all categories to be closed by default
         document.addEventListener('DOMContentLoaded', function() {
             const categories = document.querySelectorAll('.category-content');
             categories.forEach(category => {
@@ -910,25 +894,20 @@ $memberSince = date('F Y', strtotime($candidate['created_at']));
             });
         });
 
-        // CV Form Submission with Loading Overlay
         document.getElementById('cvForm').addEventListener('submit', function(e) {
             const loadingOverlay = document.getElementById('loadingOverlay');
             const cvInput = document.getElementById('cv');
-            
-            // Basic validation
+ 
             if (cvInput.files.length === 0) {
                 e.preventDefault();
                 return;
             }
-            
-            // Show loading overlay
+
             loadingOverlay.classList.add('active');
-            
-            // Disable submit button to prevent multiple submissions
+  
             document.getElementById('cvSubmitBtn').disabled = true;
         });
 
-        // Hide loading overlay when modal is closed (in case of errors)
         document.getElementById('uploadCvModal').addEventListener('hidden.bs.modal', function() {
             document.getElementById('loadingOverlay').classList.remove('active');
             document.getElementById('cvSubmitBtn').disabled = false;
