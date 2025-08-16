@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '/../Config/database.php';
 
-// Check authentication
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'candidate') {
     header("Location: Login.php");
     exit;
@@ -12,12 +11,10 @@ $candidateId = $_SESSION['user_id'];
 $candidateData = [];
 $errors = [];
 
-// Database configuration
 define('PROFILE_PHOTOS_DIR', '/Public/Uploads/profile_photos/');
 define('SERVER_UPLOAD_DIR', __DIR__ . '/..' . PROFILE_PHOTOS_DIR);
 define('DEFAULT_PROFILE', '/Public/Assets/default-user.png');
 
-// Get candidate data
 try {
     $stmt = $pdo->prepare("
         SELECT id, name, email, location, created_at, photo as profile_photo
@@ -33,7 +30,6 @@ try {
         exit;
     }
 
-    // Update session data
     $_SESSION['user_photo'] = $candidateData['profile_photo'] ?? null;
     $_SESSION['user_name'] = $candidateData['name'] ?? 'Candidate';
 
@@ -44,7 +40,6 @@ try {
     exit;
 }
 
-// Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {   
     if (isset($_POST['update_profile_photo'])) {
         handleProfilePhotoUpload();
@@ -63,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Generate profile URL with cache buster
 $profileUrl = getProfilePhotoUrl($candidateData['profile_photo'] ?? null);
 $activeTab = $_GET['tab'] ?? 'profile';
 
@@ -101,7 +95,6 @@ function handleProfilePhotoUpload() {
         return;
     }
 
-    // Create upload directory if it doesn't exist
     if (!file_exists(SERVER_UPLOAD_DIR)) {
         mkdir(SERVER_UPLOAD_DIR, 0755, true);
     }
@@ -116,7 +109,6 @@ function handleProfilePhotoUpload() {
     }
 
     try {
-        // Delete old profile photo if exists
         if (!empty($candidateData['profile_photo'])) {
             $oldFile = SERVER_UPLOAD_DIR . $candidateData['profile_photo'];
             if (file_exists($oldFile)) {
@@ -124,11 +116,9 @@ function handleProfilePhotoUpload() {
             }
         }
 
-        // Update database
         $stmt = $pdo->prepare("UPDATE users SET photo = ? WHERE id = ?");
         $stmt->execute([$fileName, $candidateId]);
 
-        // Update session and local data
         $_SESSION['photo'] = $fileName;
         $candidateData['profile_photo'] = $fileName;
 
@@ -136,7 +126,6 @@ function handleProfilePhotoUpload() {
         header("Location: Candidate_settings.php?tab=profile");
         exit;
     } catch (PDOException $e) {
-        // Clean up if database update fails
         if (file_exists($targetFile)) {
             unlink($targetFile);
         }
@@ -162,7 +151,6 @@ function handleEmailChange() {
     }
 
     try {
-        // Verify current password
         $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         $user = $stmt->fetch();
@@ -172,7 +160,6 @@ function handleEmailChange() {
             return;
         }
 
-        // Check if email is already in use
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
         $stmt->execute([$newEmail, $candidateId]);
         if ($stmt->fetch()) {
@@ -180,11 +167,9 @@ function handleEmailChange() {
             return;
         }
 
-        // Update email
         $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE id = ?");
         $stmt->execute([$newEmail, $candidateId]);
 
-        // Update session and local data
         $_SESSION['user_email'] = $newEmail;
         $candidateData['email'] = $newEmail;
 
@@ -202,7 +187,6 @@ function handlePasswordChange() {
     $newPassword = $_POST['new_password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
-    // Validation
     if (empty($currentPassword)) {
         $errors[] = "Current password is required";
     }
@@ -222,7 +206,6 @@ function handlePasswordChange() {
     }
 
     try {
-        // Verify current password
         $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         $user = $stmt->fetch();
@@ -232,7 +215,6 @@ function handlePasswordChange() {
             return;
         }
 
-        // Update password
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
         $stmt->execute([$hashedPassword, $candidateId]);
@@ -257,7 +239,6 @@ function handleAccountDeletion() {
     }
     
     try {
-        // Verify password
         $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         $user = $stmt->fetch();
@@ -267,10 +248,8 @@ function handleAccountDeletion() {
             return;
         }
         
-        // Begin transaction
         $pdo->beginTransaction();
         
-        // Delete profile photo if exists
         $stmt = $pdo->prepare("SELECT photo FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         $userPhoto = $stmt->fetch();
@@ -282,13 +261,11 @@ function handleAccountDeletion() {
             }
         }
         
-        // Delete user record
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
         $stmt->execute([$candidateId]);
         
         $pdo->commit();
-        
-        // Logout and redirect
+
         session_destroy();
         setFlashMessage('success', 'Your account has been deleted successfully');
         header("Location: Login.php");
@@ -656,7 +633,6 @@ function handleAccountDeletion() {
             profileUpload.value = '';
         });
 
-        // Password validation
         const newPasswordInput = document.querySelector('input[name="new_password"]');
         const confirmPasswordInput = document.querySelector('input[name="confirm_password"]');
         const changePasswordBtn = document.getElementById('change-password-btn');
@@ -672,19 +648,15 @@ function handleAccountDeletion() {
             const confirmPassword = confirmPasswordInput.value;
             let isValid = true;
             
-            // Check length
             toggleValidationClass('length-check', password.length >= 8);
             isValid = isValid && password.length >= 8;
-            
-            // Check for number
+
             toggleValidationClass('number-check', /\d/.test(password));
             isValid = isValid && /\d/.test(password);
-            
-            // Check for special character
+   
             toggleValidationClass('special-check', /[^A-Za-z0-9]/.test(password));
             isValid = isValid && /[^A-Za-z0-9]/.test(password);
-            
-            // Check if passwords match
+   
             if (password && confirmPassword) {
                 if (password === confirmPassword) {
                     passwordMatchText.textContent = 'Passwords match';
@@ -699,12 +671,10 @@ function handleAccountDeletion() {
             } else {
                 passwordMatchText.textContent = '';
             }
-            
-            // Enable/disable button
+
             changePasswordBtn.disabled = !isValid;
         }
         
-        // Helper functions
         function toggleValidationClass(elementId, isValid) {
             const element = document.getElementById(elementId);
             if (isValid) {
@@ -724,8 +694,7 @@ function handleAccountDeletion() {
         function hideFileError() {
             fileError.classList.add('d-none');
         }
-        
-        // Delete account form submission
+    
         document.getElementById('deleteAccountForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             
