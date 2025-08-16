@@ -45,7 +45,7 @@ $_SESSION['user_id'] = $user['id'];
 $_SESSION['user_name'] = $user['name'];
 $_SESSION['user_role'] = $user['role'];
 
-// set the right photo depending on role
+
 if ($user['role'] === 'candidate') {
     $_SESSION['photo'] = $user['photo'] ?? 'default-user.png';
 } elseif ($user['role'] === 'recruiter') {
