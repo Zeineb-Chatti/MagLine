@@ -3,7 +3,7 @@ session_start();
 $baseURL = '/MagLine/Public';
 require_once __DIR__ . '/../Config/Database.php';
 
-// Authentication check
+
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     header("Location: ../Auth/login.php");
     exit;
@@ -13,7 +13,6 @@ $headerManagerName = $_SESSION['user_name'] ?? 'User';
 $recruiterId = $_SESSION['user_id'];
 $errors = [];
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $company_name = $_POST['company_name'] ?? '';
     $company_website = $_POST['company_website'] ?? '';
@@ -22,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = $_POST['phone'] ?? '';
     $manager_email = $_POST['manager_email'] ?? '';
     $linkedin = $_POST['linkedin'] ?? '';
-    
-    // Validation
+
     if (empty($company_name)) {
         $errors[] = "Company name is required";
     }
@@ -68,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get company data
 try {
     $stmt = $pdo->prepare("
         SELECT company_name, company_logo, company_website, about_company, 
@@ -97,7 +94,6 @@ try {
     exit;
 }
 
-// FIXED: Logo handling using same logic as Dashboard
 $defaultLogo = '../Public/Assets/default-company.png';
 $logoUrl = !empty($company['company_logo']) 
     ? '../Public/Uploads/Company_Logos/' . htmlspecialchars($company['company_logo'])
@@ -115,7 +111,6 @@ $logoUrl = !empty($company['company_logo'])
     <link href="../Public/Assets/CSS/main.css" rel="stylesheet">
     <link href="../Public/Assets/CSS/company-profile.css" rel="stylesheet">
     <style>
-        /* FIXED: Modal buttons styling - simplified */
         .modal-footer {
             display: flex !important;
             justify-content: flex-end !important;
@@ -146,8 +141,7 @@ $logoUrl = !empty($company['company_logo'])
             height: 100%;
             object-fit: cover;
         }
-        
-        /* Modal dark theme */
+
         .modal-content {
             background-color: #1a1d20 !important;
             border: 1px solid #495057 !important;
@@ -287,7 +281,6 @@ $logoUrl = !empty($company['company_logo'])
         </main>
     </div>
 
-    <!-- FIXED: Simplified modal structure -->
     <div class="modal fade" id="editCompanyModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -353,18 +346,13 @@ $logoUrl = !empty($company['company_logo'])
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // FIXED: Enhanced modal initialization with debugging
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing modal...');
             
             var modalElement = document.getElementById('editCompanyModal');
             var modal = new bootstrap.Modal(modalElement);
-            
-            // Check if buttons exist
             var buttons = modalElement.querySelectorAll('.modal-footer .btn');
             console.log('Found buttons:', buttons.length);
-            
-            // Force display the modal footer
             var modalFooter = modalElement.querySelector('.modal-footer');
             if (modalFooter) {
                 modalFooter.style.display = 'flex';
@@ -372,8 +360,7 @@ $logoUrl = !empty($company['company_logo'])
                 modalFooter.style.padding = '1rem';
                 console.log('Modal footer forced to display');
             }
-            
-            // Add click handlers
+    
             modalElement.addEventListener('shown.bs.modal', function() {
                 console.log('Modal shown successfully');
                 var footer = this.querySelector('.modal-footer');
