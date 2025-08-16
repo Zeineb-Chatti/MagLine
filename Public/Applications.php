@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_application'])
     
     if ($applicationId) {
         try {
-            // Verify the application belongs to this recruiter
             $stmt = $pdo->prepare("
                 DELETE a FROM applications a
                 JOIN offers o ON a.offer_id = o.id
@@ -82,7 +81,7 @@ try {
     error_log("Error fetching applications: " . $e->getMessage());
 }
 
-// --- Set $currentPage for sidebar active state ---
+
 $currentPage = basename($_SERVER['PHP_SELF']); 
 ?>
 
@@ -162,7 +161,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             opacity: 1;
         }
         
-        /* Updated styles for better text visibility */
         .application-details h6 {
             color: rgba(255,255,255,0.7) !important;
             margin-bottom: 0.5rem;
@@ -230,9 +228,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 }
 
 .delete-application .btn-close {
-    margin: 0; /* Remove any margin from the close button */
-    font-size: 0.8rem; /* Adjust the size of the X */
-    padding: 0.5rem; /* Add some padding to make it easier to click */
+    margin: 0;
+    font-size: 0.8rem;
+    padding: 0.5rem; 
 }
         
         .application-card:hover .delete-application {
