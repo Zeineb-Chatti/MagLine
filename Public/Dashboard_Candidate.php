@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '/../Config/database.php';
 
-// Initialize all variables with safe defaults
 $candidateId = $_SESSION['user_id'] ?? null;
 $candidateName = 'Candidate';
 $displayName = 'Candidate';
@@ -12,14 +11,12 @@ $latestJobs = [];
 $statusDistribution = [];
 $headerManagerName = 'Candidate';
 
-// Strict authentication check
 if (!$candidateId || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'candidate') {
     header("Location: Login.php");
     exit;
 }
 
 try {
-    // 1. Get user data
     $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
     $stmt->execute([$candidateId]);
     $userData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,18 +25,15 @@ try {
         $candidateName = $userData['name'];
         $_SESSION['user_name'] = $candidateName;
         
-        // Extract first name
         $nameParts = explode(' ', $candidateName);
         $displayName = $nameParts[0];
         $headerManagerName = $displayName;
     }
 
-    // 2. Count total applications
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM applications WHERE candidate_id = ?");
     $stmt->execute([$candidateId]);
     $totalApplications = (int)$stmt->fetchColumn();
 
-    // 3. Get recent applications
 $stmt = $pdo->prepare(
     "SELECT o.id, o.title, u.company_name AS company_name, a.status, a.created_at as application_date
      FROM applications a
@@ -53,7 +47,6 @@ $stmt = $pdo->prepare(
 $stmt->execute([$candidateId]);
 $recentApplications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 4. Get latest jobs - CRITICAL FIX HERE
 $stmt = $pdo->prepare(
     "SELECT o.id, o.title, u.company_name AS company_name, o.created_at AS posted_date
      FROM offers o
@@ -66,8 +59,6 @@ $stmt = $pdo->prepare(
 $stmt->execute();
 $latestJobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-    // 5. Get status distribution
     $stmt = $pdo->prepare(
         "SELECT status, COUNT(*) as count 
         FROM applications 
@@ -223,51 +214,43 @@ $latestJobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="../Public/Assets/Js/main.js"></script>
     
     <script>
-   // Professional Status-Based Chart Colors
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('statusChart').getContext('2d');
     const statusData = <?= json_encode($statusDistribution) ?>;
     
     const labels = statusData.map(item => item.status);
     const data = statusData.map(item => item.count);
-    
-    // Smart color mapping based on status
+   
     function getStatusColor(status) {
         const statusLower = status.toLowerCase();
-        
-        // Success/Positive states
+
         if (statusLower.includes('accept') || statusLower.includes('hired') || 
             statusLower.includes('approved') || statusLower.includes('selected')) {
             return 'rgba(16, 185, 129, 0.85)';
         }
         
-        // Progress/Active states
         if (statusLower.includes('interview') || statusLower.includes('shortlist') || 
             statusLower.includes('reviewing') || statusLower.includes('in_review') ||
             statusLower.includes('in review') || statusLower.includes('second round')) {
             return 'rgba(79, 172, 254, 0.85)';
         }
-        
-        // Waiting/Pending states
+
         if (statusLower.includes('pending') || statusLower.includes('waiting') || 
             statusLower.includes('submitted') || statusLower.includes('applied') ||
             statusLower.includes('under review')) {
             return 'rgba(245, 158, 11, 0.85)';
         }
         
-        // Negative states
         if (statusLower.includes('reject') || statusLower.includes('declined') || 
             statusLower.includes('unsuccessful') || statusLower.includes('not selected')) {
             return 'rgba(239, 68, 68, 0.75)';
         }
         
-        // Withdrawn/Inactive
         if (statusLower.includes('withdrawn') || statusLower.includes('cancelled') || 
             statusLower.includes('expired') || statusLower.includes('inactive')) {
             return 'rgba(139, 92, 246, 0.75)';
         }
         
-        // Default
         return 'rgba(6, 182, 212, 0.85)';
     }
     
@@ -278,8 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function getHoverColor(bgColor) {
         return bgColor.replace(/0\.\d+/, '0.95');
     }
-    
-    // Generate colors based on status values
+
     const backgroundColors = labels.map(status => getStatusColor(status));
     const borderColors = backgroundColors.map(color => getBorderColor(color));
     const hoverColors = backgroundColors.map(color => getHoverColor(color));
@@ -407,8 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
-    // Post-render glow effect
+
     const originalDraw = chart.draw;
     chart.draw = function() {
         const ctx = this.ctx;
@@ -420,8 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalDraw.call(this);
         ctx.restore();
     };
-    
-    // Subtle pulsing animation for pending statuses
+ 
     let pulseDirection = 1;
     let pulseIntensity = 0.85;
     
