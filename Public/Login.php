@@ -324,7 +324,6 @@
       }
     }
 
-    /* Fix for autocomplete changing label colors */
 .form-input:-webkit-autofill,
 .form-input:-webkit-autofill:hover, 
 .form-input:-webkit-autofill:focus {
@@ -403,7 +402,6 @@
   </div>
 
   <script>
-    // Animated Neural Network Particle Background
     (() => {
       const canvas = document.getElementById('aiBackgroundCanvas');
       const ctx = canvas.getContext('2d');
