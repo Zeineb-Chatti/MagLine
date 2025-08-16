@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role
 
 $candidateId = $_SESSION['user_id'];
 
-// Initialize variables
 $totalApplications = 0;
 $applications = [];
 $totalPages = 1;
@@ -17,7 +16,6 @@ $candidateName = 'Candidate';
 $error = '';
 
 try {
-    // Get candidate info
     $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
     $stmt->execute([$candidateId]);
     $candidate = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -26,12 +24,10 @@ try {
         $candidateName = $candidate['name'] ?? 'Candidate';
     }
 
-    // Pagination setup
     $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
     $limit = 10;
     $offset = ($page - 1) * $limit;
 
-    // Get applications - corrected to match your database schema
     $query = "SELECT a.id, o.title, u.company_name, a.status, a.created_at, o.id as offer_id
               FROM applications a
               JOIN offers o ON a.offer_id = o.id
@@ -41,8 +37,7 @@ try {
               LIMIT :limit OFFSET :offset";
     
     $stmt = $pdo->prepare($query);
-    
-    // Bind parameters with explicit types
+ 
     $stmt->bindValue(':candidate_id', $candidateId, PDO::PARAM_INT);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -50,7 +45,6 @@ try {
     $stmt->execute();
     $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Count total applications
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM applications WHERE candidate_id = ?");
     $stmt->execute([$candidateId]);
     $totalApplications = (int)$stmt->fetchColumn();
@@ -84,28 +78,25 @@ try {
     }
     
 
-    .table-responsive { /* Add this new rule to target the container holding the table */
-        background-color: #1a2035; /* Dark blue background for the entire table area */
+    .table-responsive {
+        background-color: 
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-         /* Style for the Bootstrap table itself */
         .table {
-            color: white; /* White text for all table content */
+            color: white;
             margin: 0;
-            /* Important: Ensure the table's background is transparent or set to your dark color */
-            background-color: transparent; /* Allows .table-responsive background to show */
+            background-color: transparent; 
             border-collapse: separate;
             border-spacing: 0;
-            
-            /* Override Bootstrap's table background variable if it's causing issues */
-            --bs-table-bg: #1a2035; /* Set the Bootstrap table background variable */
-            --bs-table-color: white; /* Set the Bootstrap table text color variable */
+
+            --bs-table-bg: #1a2035; 
+            --bs-table-color: white; 
         }
     .table thead th {
-        background-color: #0f1427; /* Darker blue for header */
+        background-color: #0f1427;
         color: white;
         padding: 15px;
         border-bottom: 2px solid #2a3042;
@@ -113,22 +104,22 @@ try {
     }
 
     .table tbody tr {
-        background-color: #1a2035; /* Dark blue for rows */
+        background-color: #1a2035;
         transition: background-color 0.2s ease;
     }
 
     .table tbody tr:nth-child(even) {
-        background-color: #1e2439; /* Slightly different blue for alternating rows */
+        background-color: #1e2439;
     }
 
     .table tbody tr:hover {
-        background-color: #232940; /* Hover color */
+        background-color: #232940;
     }
 
     .table td {
         padding: 15px;
         vertical-align: middle;
-        border-bottom: 1px solid #2a3042; /* Subtle border between rows */
+        border-bottom: 1px solid #2a3042; 
     }
     
     .status-badge {
@@ -141,18 +132,18 @@ try {
     }
     
     .status-en_attente {
-        background-color: #3a3a6a; /* Dark blue for pending */
-        color:rgb(12, 12, 29); /* Light purple text */
+        background-color: #3a3a6a; 
+        color:rgb(12, 12, 29);
     }
     
     .status-accepte {
-        background-color: #2d4a3d; /* Dark green for accepted */
-        color: #a8dfc1; /* Light green text */
+        background-color: #2d4a3d;
+        color: #a8dfc1; 
     }
     
     .status-refuse {
-        background-color: #4a2d3d; /* Dark red for rejected */
-        color: #dfa8c1; /* Light pink text */
+        background-color: #4a2d3d; 
+        color: #dfa8c1;
     }
     
     .empty-state {
@@ -163,7 +154,7 @@ try {
     
     .empty-state i {
         font-size: 3rem;
-        color: #b8b8ff; /* Light purple icon */
+        color: #b8b8ff; 
         margin-bottom: 20px;
     }
     
@@ -173,10 +164,10 @@ try {
     }
     
     .empty-state p {
-        color: #b8b8ff; /* Light purple text */
+        color: #b8b8ff; 
         margin-bottom: 25px;
     }
-    /* Add this to your existing CSS */
+    
 .pagination {
     margin-top: 30px;
 }
@@ -218,7 +209,7 @@ try {
     box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
 }
 
-/* Optional: Add a subtle animation to the active page */
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
