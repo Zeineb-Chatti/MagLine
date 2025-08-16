@@ -2,7 +2,6 @@
 session_start();
 $role = $_GET['role'] ?? $_SESSION['user_role'] ?? 'candidate';
 
-// Display errors if any
 if (isset($_SESSION['profile_errors'])) {
     echo "<div class='alert alert-danger'>";
     foreach ($_SESSION['profile_errors'] as $error) {
@@ -12,13 +11,11 @@ if (isset($_SESSION['profile_errors'])) {
     unset($_SESSION['profile_errors']);
 }
 
-// Restore form data if available
 $formData = $_SESSION['profile_form_data'] ?? [];
 if (!empty($formData)) {
     unset($_SESSION['profile_form_data']);
 }
 
-// Database connection to fetch skills
 $host = 'localhost';
 $dbname = 'magline';
 $username = 'root';
@@ -28,11 +25,9 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // Fetch all skills to map names to IDs (case-insensitive)
     $stmt = $pdo->query("SELECT id, LOWER(name) as lower_name, name FROM skills");
     $allSkills = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Create lookup arrays
+   
     $skillNamesToIds = [];
     $skillIdToNames = [];
     foreach ($allSkills as $skill) {
@@ -40,7 +35,6 @@ try {
         $skillIdToNames[$skill['id']] = $skill['name'];
     }
 
-    // Skill categories with their associated skills
     $skillCategories = [
         'Programming Languages' => ['Python', 'JavaScript', 'TypeScript', 'Java', 'C#', 'Go', 'Rust', 'Swift', 'Kotlin', 'Ruby', 'PHP', 'R', 'Scala'],
         'Web Development' => ['React.js', 'Vue.js', 'Angular', 'Node.js', 'Next.js', 'Nuxt.js', 'Express.js', 'Django', 'Spring Boot', 'Laravel', 'GraphQL', 'REST API', 'WebSockets'],
@@ -739,7 +733,7 @@ select.form-input option {
                                         </div>
                                     </div>
                                     <?php
-                                    // Open this category if it has selected skills and we haven't opened one yet
+            
                                     if ($hasSelectedSkills && !$firstCategoryWithSelectionOpened) {
                                         echo "<script>document.addEventListener('DOMContentLoaded', function() { toggleCategory('$categoryId'); });</script>";
                                         $firstCategoryWithSelectionOpened = true;
@@ -926,7 +920,6 @@ select.form-input option {
         initParticles();
         animate();
 
-        // Category toggling
         function toggleCategory(categoryId) {
             const categoryContent = document.getElementById(categoryId);
             const categoryHeader = categoryContent.previousElementSibling;
@@ -939,10 +932,9 @@ select.form-input option {
                 categoryHeader.classList.add('active');
             }
         }
-        
-        // Form submission loading overlay
+
         document.getElementById('profileForm').addEventListener('submit', function(event) {
-            // Basic validation check before showing overlay
+           
             let isValid = true;
             document.querySelectorAll('.form-input[required]').forEach(field => {
                 if (!field.value.trim()) {
@@ -950,7 +942,6 @@ select.form-input option {
                 }
             });
 
-            // Specific check for CV if role is candidate and it's required
             const roleInput = document.querySelector('input[name="role"]').value;
             if (roleInput === 'candidate') {
                 const cvInput = document.getElementById('cv');
@@ -960,7 +951,6 @@ select.form-input option {
             }
 
             if (isValid === false) {
-                // Scroll to the first invalid field for better UX
                 document.querySelectorAll('.form-input[required]').forEach(field => {
                     if (!field.value.trim() && isValid !== null) {
                         field.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -989,7 +979,6 @@ select.form-input option {
             }, 1000);
         });
 
-        // Form validation with visual feedback (blur event)
         document.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('blur', function() {
                 if (this.required && !this.value.trim()) {
@@ -1002,9 +991,7 @@ select.form-input option {
             });
         });
 
-        // Initialize file input displays
         document.addEventListener('DOMContentLoaded', function() {
-            // Restore file input display names
             document.querySelectorAll('.file-input').forEach(input => {
                 input.addEventListener('change', function() {
                     const displaySpan = this.nextElementSibling.querySelector('span');
@@ -1024,7 +1011,7 @@ select.form-input option {
                         }
                     }
                 });
-                // Set initial display name if a file was previously selected
+
                 if (input.files.length > 0) {
                     input.dispatchEvent(new Event('change'));
                 }
