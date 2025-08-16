@@ -1,19 +1,16 @@
 <?php
 session_start();
 
-// Enhanced error reporting and logging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/profile_errors.log');
 
-// Database Configuration
 $host = 'localhost';
 $dbname = 'magline';
 $username = 'root';
 $password = '';
 
-// Initialize PDO connection
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,7 +20,6 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// Upload directories configuration
 $uploadDirs = [
     'profile_photos' => __DIR__ . '/../Public/uploads/profile_photos/',
     'cvs' => __DIR__ . '/../Public/uploads/cvs/',
@@ -31,7 +27,6 @@ $uploadDirs = [
     'manager_photos' => __DIR__ . '/../Public/uploads/manager_photos/'
 ];
 
-// Create upload directories if they don't exist
 foreach ($uploadDirs as $name => $dir) {
     if (!file_exists($dir)) {
         if (mkdir($dir, 0777, true)) {
@@ -44,23 +39,18 @@ foreach ($uploadDirs as $name => $dir) {
     }
 }
 
-/**
- * Enhanced file upload handler with detailed logging
- */
 function handleFileUpload($file, array $allowedTypes, int $maxSize, string $targetDir): array {
     if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
         error_log("No file uploaded");
         return ['success' => true, 'filename' => null];
     }
 
-    // Check for upload errors
     if ($file['error'] !== UPLOAD_ERR_OK) {
         $errorMsg = "Upload error code: " . $file['error'];
         error_log($errorMsg);
         return ['success' => false, 'errors' => [$errorMsg]];
     }
 
-    // Validate file extension
     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($ext, $allowedTypes)) {
         $errorMsg = "Invalid file type: $ext. Allowed: " . implode(', ', $allowedTypes);
@@ -68,27 +58,23 @@ function handleFileUpload($file, array $allowedTypes, int $maxSize, string $targ
         return ['success' => false, 'errors' => [$errorMsg]];
     }
 
-    // Validate file size
     if ($file['size'] > $maxSize) {
         $errorMsg = "File too large: " . $file['size'] . " bytes. Max: " . $maxSize . " bytes (" . ($maxSize/1048576) . "MB)";
         error_log($errorMsg);
         return ['success' => false, 'errors' => [$errorMsg]];
     }
 
-    // Generate unique filename
     $newName = uniqid('', true) . ".$ext";
     $dest = $targetDir . $newName;
 
     error_log("Attempting to move file from: " . $file['tmp_name'] . " to: " . $dest);
 
-    // Move uploaded file
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
         $errorMsg = "Failed to move uploaded file from {$file['tmp_name']} to $dest";
         error_log($errorMsg);
         return ['success' => false, 'errors' => [$errorMsg]];
     }
 
-    // Verify file was moved successfully
     if (!file_exists($dest)) {
         $errorMsg = "File was not found after move operation: $dest";
         error_log($errorMsg);
@@ -99,9 +85,6 @@ function handleFileUpload($file, array $allowedTypes, int $maxSize, string $targ
     return ['success' => true, 'filename' => $newName, 'full_path' => $dest];
 }
 
-/**
- * Geocode location using OpenStreetMap Nominatim
- */
 function geocodeLocation(string $location): ?array {
     if (strtolower($location) === 'remote') {
         return null;
@@ -137,9 +120,6 @@ function geocodeLocation(string $location): ?array {
     return null;
 }
 
-/**
- * Test Flask service connectivity
- */
 function testFlaskConnection(): array {
     error_log("Testing Flask service connectivity...");
     
@@ -179,33 +159,26 @@ function testFlaskConnection(): array {
     return $results;
 }
 
-/**
- * Enhanced CV validation with comprehensive debugging
- */
 function validateCV(string $cvPath): array {
     error_log("=== CV Validation Started ===");
     error_log("CV Path provided: $cvPath");
 
-    // Check if file exists
     if (!file_exists($cvPath)) {
         $errorMsg = "CV file does not exist: $cvPath";
         error_log($errorMsg);
         return ['valid' => false, 'reason' => $errorMsg];
     }
 
-    // Check if file is readable
     if (!is_readable($cvPath)) {
         $errorMsg = "CV file is not readable: $cvPath";
         error_log($errorMsg);
         return ['valid' => false, 'reason' => $errorMsg];
     }
 
-    // Get file info
     $fileSize = filesize($cvPath);
     $mimeType = mime_content_type($cvPath);
     error_log("CV file info - Size: $fileSize bytes, MIME: $mimeType");
 
-    // Get real path
     $realPath = realpath($cvPath);
     if ($realPath === false) {
         $errorMsg = "Could not resolve real path for: $cvPath";
@@ -215,12 +188,10 @@ function validateCV(string $cvPath): array {
 
     error_log("CV real path: $realPath");
 
-    // Prepare data for Flask
     $normalizedPath = str_replace('\\', '/', $realPath);
     $data = json_encode(['cv_path' => $normalizedPath]);
     error_log("Data being sent to Flask: $data");
 
-    // Test Flask connectivity first
     $flaskTest = testFlaskConnection();
     if (!$flaskTest['validate_cv']['accessible']) {
         $errorMsg = "Flask CV validation service is not accessible";
@@ -228,7 +199,6 @@ function validateCV(string $cvPath): array {
         return ['valid' => false, 'reason' => $errorMsg];
     }
 
-    // Make cURL request to Flask
     $ch = curl_init("http://localhost:5001/validate_cv");
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
@@ -249,14 +219,12 @@ function validateCV(string $cvPath): array {
     error_log("Flask response - HTTP Code: $httpCode, cURL Error: $curlError");
     error_log("Flask raw response: $response");
 
-    // Handle cURL errors
     if ($curlErrno !== 0) {
         $errorMsg = "cURL error ($curlErrno): $curlError";
         error_log($errorMsg);
         return ['valid' => false, 'reason' => $errorMsg];
     }
 
-    // Handle HTTP errors
     if ($httpCode !== 200) {
         $errorMsg = "Flask validation service returned HTTP $httpCode";
         if ($response) {
@@ -266,7 +234,6 @@ function validateCV(string $cvPath): array {
         return ['valid' => false, 'reason' => $errorMsg];
     }
 
-    // Parse JSON response
     $result = json_decode($response, true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         $errorMsg = "Invalid JSON response from Flask: " . json_last_error_msg();
@@ -280,9 +247,6 @@ function validateCV(string $cvPath): array {
     return $result ?? ['valid' => false, 'reason' => 'Empty response from validation service'];
 }
 
-/**
- * Enhanced skill extraction with debugging
- */
 function extractSkillsFromCV(string $cvPath): array {
     error_log("=== Skill Extraction Started ===");
     error_log("CV Path for skill extraction: $cvPath");
@@ -334,7 +298,6 @@ function extractSkillsFromCV(string $cvPath): array {
     return $skills;
 }
 
-// Main processing logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("=== Profile Setup Process Started ===");
     error_log("POST data received: " . json_encode($_POST));
@@ -357,7 +320,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($role === 'candidate') {
             error_log("Processing candidate profile...");
 
-            // Validate required fields
             $requiredFields = ['full_name', 'phone', 'location'];
             foreach ($requiredFields as $field) {
                 if (empty($_POST[$field])) {
@@ -369,13 +331,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error_log("Validation errors: " . json_encode($errors));
             }
 
-            // Geocode the location
             $coordinates = geocodeLocation($_POST['location']);
             $latitude = $coordinates['latitude'] ?? null;
             $longitude = $coordinates['longitude'] ?? null;
             error_log("Location coordinates: " . ($latitude ? "Lat: $latitude, Lng: $longitude" : "Not available"));
 
-            // Handle file uploads
             error_log("Processing file uploads...");
             
             $cvResult = handleFileUpload(
@@ -392,7 +352,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $uploadDirs['profile_photos']
             );
 
-            // Check upload results
             if (!$cvResult['success']) {
                 $errors = array_merge($errors, $cvResult['errors']);
                 error_log("CV upload failed: " . json_encode($cvResult['errors']));
@@ -405,7 +364,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $extractedSkills = [];
 
-            // Process CV if uploaded successfully
             if ($cvResult['filename'] && empty($errors)) {
                 error_log("CV uploaded successfully, starting validation...");
                 
@@ -413,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 if (!$cvValidation['valid']) {
                     error_log("CV validation failed: " . $cvValidation['reason']);
-                    // Clean up uploaded file
+                   
                     if (file_exists($cvResult['full_path'])) {
                         unlink($cvResult['full_path']);
                         error_log("Deleted invalid CV file: " . $cvResult['full_path']);
@@ -426,12 +384,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // If no errors, update database
-            // In the candidate profile section, after successful photo upload:
+           
 if (empty($errors)) {
     error_log("No errors found, updating candidate profile in database...");
 
-    // Update user table with coordinates
     $stmt = $pdo->prepare("
         UPDATE users SET 
             role = ?, name = ?, phone = ?, location = ?, 
@@ -446,28 +402,24 @@ if (empty($errors)) {
         $_POST['location'],
         $_POST['linkedin'] ?? null,
         $_POST['about'] ?? null,
-        $photoResult['filename'], // This is the uploaded photo filename
+        $photoResult['filename'], 
         $latitude,
         $longitude,
         $user_id
     ]);
-    
-    // ADD THESE LINES TO SET SESSION VARIABLES FOR THE HEADER
+
     $_SESSION['photo'] = $photoResult['filename'];
     $_SESSION['user_name'] = $_POST['full_name'];
     
     error_log("User table updated successfully with coordinates");
-    // ... rest of your code ...
 
-
-                // Insert resume record if CV was uploaded
+             
                 if ($cvResult['filename']) {
                     $stmt = $pdo->prepare("INSERT INTO resumes (user_id, filename) VALUES (?, ?)");
                     $stmt->execute([$user_id, $cvResult['filename']]);
                     error_log("Resume record inserted: " . $cvResult['filename']);
                 }
 
-                // Handle skills
                 $manualSkillIds = isset($_POST['skills']) && is_array($_POST['skills']) ? 
                     array_map('intval', $_POST['skills']) : [];
                 $extractedSkillIds = [];
@@ -475,15 +427,14 @@ if (empty($errors)) {
                 error_log("Manual skills: " . json_encode($manualSkillIds));
                 error_log("Extracted skills: " . json_encode($extractedSkills));
 
-                // Process extracted skills
                 foreach ($extractedSkills as $skillName) {
-                    // Check if skill exists
+                  
                     $stmt = $pdo->prepare("SELECT id FROM skills WHERE LOWER(name) = LOWER(?) LIMIT 1");
                     $stmt->execute([$skillName]);
                     $skillId = $stmt->fetchColumn();
 
                     if (!$skillId) {
-                        // Create new skill
+                       
                         $stmt = $pdo->prepare("INSERT INTO skills (name) VALUES (?)");
                         $stmt->execute([$skillName]);
                         $skillId = $pdo->lastInsertId();
@@ -492,11 +443,9 @@ if (empty($errors)) {
                     $extractedSkillIds[] = (int) $skillId;
                 }
 
-                // Combine manual and extracted skills
                 $finalSkills = array_unique(array_merge($manualSkillIds, $extractedSkillIds));
                 error_log("Final skills to associate: " . json_encode($finalSkills));
 
-                // Sync user skills
                 $stmt = $pdo->prepare("SELECT skill_id FROM user_skills WHERE user_id = ?");
                 $stmt->execute([$user_id]);
                 $existingSkills = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -504,7 +453,6 @@ if (empty($errors)) {
                 $toInsert = array_diff($finalSkills, $existingSkills);
                 $toDelete = array_diff($existingSkills, $finalSkills);
 
-                // Remove old skills
                 if (!empty($toDelete)) {
                     $placeholders = implode(',', array_fill(0, count($toDelete), '?'));
                     $stmt = $pdo->prepare("DELETE FROM user_skills WHERE user_id = ? AND skill_id IN ($placeholders)");
@@ -512,7 +460,6 @@ if (empty($errors)) {
                     error_log("Removed skills: " . json_encode($toDelete));
                 }
 
-                // Add new skills
                 if (!empty($toInsert)) {
                     $stmt = $pdo->prepare("INSERT INTO user_skills (user_id, skill_id) VALUES (?, ?)");
                     foreach ($toInsert as $skillId) {
@@ -526,7 +473,6 @@ if (empty($errors)) {
            } elseif ($role === 'recruiter') {
     error_log("Processing recruiter profile...");
 
-    // Validate required fields
     $requiredFields = ['company_name', 'manager_name', 'manager_phone', 'manager_email', 'location'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
@@ -534,7 +480,6 @@ if (empty($errors)) {
         }
     }
 
-    // Handle file uploads
     $companyLogo = handleFileUpload(
         $_FILES['company_logo'] ?? null, 
         ['jpg', 'jpeg', 'png', 'gif'], 
@@ -557,7 +502,6 @@ if (empty($errors)) {
     }
 
     if (empty($errors)) {
-    // Update recruiter profile - FIXED VERSION
     $stmt = $pdo->prepare("
         UPDATE users SET 
             role = ?, name = ?, phone = ?, location = ?,
@@ -568,8 +512,8 @@ if (empty($errors)) {
     ");
     $stmt->execute([
         'recruiter',
-        $_POST['manager_name'],           // name field gets manager name
-        $_POST['manager_phone'],          // phone field gets manager phone  
+        $_POST['manager_name'],         
+        $_POST['manager_phone'],        
         $_POST['location'],
         $_POST['company_name'],
         $_POST['company_size'] ?? null,
@@ -580,12 +524,11 @@ if (empty($errors)) {
         $managerPhoto['filename'],
         $_POST['manager_job_title'] ?? null,
         $_POST['manager_phone'],
-        $_POST['manager_email'],          // manager_email field gets manager email
+        $_POST['manager_email'],         
         $_POST['about_company'] ?? null,
         $user_id
     ]);
-    
-    // Set session variables for the header
+   
     $_SESSION['manager_photo'] = $managerPhoto['filename'];
     $_SESSION['user_name'] = $_POST['manager_name'];
     $_SESSION['company_name'] = $_POST['company_name'];
@@ -599,7 +542,6 @@ if (empty($errors)) {
             error_log("Invalid role specified: $role");
         }
 
-        // Finalize transaction
         if (empty($errors)) {
             $pdo->commit();
             error_log("Transaction committed successfully");
@@ -634,7 +576,6 @@ if (empty($errors)) {
     error_log("=== Profile Setup Process Completed ===");
 
 } else {
-    // Redirect if not POST request
     error_log("Non-POST request redirected to setup page");
     header("Location: SetUp_Profile.php");
     exit();
