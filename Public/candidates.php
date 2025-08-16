@@ -11,7 +11,6 @@ if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role
 $recruiterId = $_SESSION['user_id'];
 global $pdo;
 
-// --- Header Data ---
 $headerProfilePicture = '../Public/Assets/default-avatar.png';
 $headerManagerName = 'Recruiter';
 
@@ -29,7 +28,6 @@ try {
     error_log("Error fetching user data in Candidates.php: " . $e->getMessage());
 }
 
-// Search functionality for existing candidates
 $searchTerm = $_GET['search'] ?? '';
 $candidates = [];
 
@@ -69,7 +67,6 @@ try {
     error_log("Error fetching candidates: " . $e->getMessage());
 }
 
-// --- Set $currentPage for sidebar active state ---
 $currentPage = basename($_SERVER['PHP_SELF']); 
 ?>
 
@@ -469,7 +466,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     </div>
                 <?php endif; ?>
 
-                <!-- Enhanced Search Bar -->
                 <div class="search-container animate__animated animate__fadeIn">
                     <form method="GET" class="d-flex">
                         <div class="input-group">
@@ -611,14 +607,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize tooltips
         document.addEventListener('DOMContentLoaded', function() {
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
-            
-            // Add smooth scrolling animation for candidate cards
+ 
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
