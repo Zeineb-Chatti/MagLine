@@ -3,35 +3,26 @@ session_start();
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../App/Helpers/notification_functions.php';
 
-// Enable error reporting for debugging
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/**
- * Job Offer Processing Script
- * Handles job offer creation with geocoding, skill extraction, and candidate notifications
- */
-
-// Security: Verify user authentication and authorization
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     header("Location: ../Auth/login.php");
     exit;
 }
 
-// Get current user information
 $userId = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $currentUser = $stmt->fetch();
 
-// Configuration constants
 const VALID_EMPLOYMENT_TYPES = ['Full-time', 'Part-time', 'Contract'];
 const VALID_WORK_TYPES = ['on-site', 'remote', 'hybrid'];
 const GEOCODING_TIMEOUT = 5;
 const FLASK_API_TIMEOUT = 10;
 const MIN_SKILL_LENGTH = 2;
 
-// Initialize form data and errors
 $errors = [];
 $formData = [
     'title' => '',
@@ -42,11 +33,6 @@ $formData = [
     'skills' => []
 ];
 
-/**
- * Geocode location using OpenStreetMap Nominatim API
- * @param string $location The location to geocode
- * @return array|null Returns [lat, lon] or null if geocoding fails
- */
 function geocodeLocation($location) {
     $geocodeUrl = "https://nominatim.openstreetmap.org/search?format=json&q=" . 
                  urlencode($location) . "&limit=1";
@@ -90,11 +76,7 @@ function geocodeLocation($location) {
     return [$latitude, $longitude];
 }
 
-/**
- * Extract skills from job description using Flask API
- * @param array $jobData Job data including description, location, work_type, coordinates
- * @return array Array of extracted skill names
- */
+
 function extractSkillsFromAPI($jobData) {
     $flaskApiUrl = 'http://localhost:5001/extract_skills_from_text';
     $postData = json_encode([
@@ -140,13 +122,6 @@ function extractSkillsFromAPI($jobData) {
     return $json['skills'];
 }
 
-/**
- * Process and store skills for a job offer
- * @param PDO $pdo Database connection
- * @param int $offerId Job offer ID
- * @param array $skillNames Array of skill names to process
- * @return int Number of skills successfully processed
- */
 function processSkills($pdo, $offerId, $skillNames) {
     $processedCount = 0;
     
@@ -161,18 +136,15 @@ function processSkills($pdo, $offerId, $skillNames) {
     foreach ($skillNames as $skillName) {
         $skillNameClean = trim($skillName);
         
-        // Validate skill name
         if (empty($skillNameClean) || 
             is_numeric($skillNameClean) || 
             strlen($skillNameClean) < MIN_SKILL_LENGTH) {
             continue;
         }
-        
-        // Check if skill exists
+ 
         $stmtSelectSkill->execute([$skillNameClean]);
         $skillId = $stmtSelectSkill->fetchColumn();
-        
-        // Create new skill if it doesn't exist
+
         if (!$skillId) {
             try {
                 $stmtInsertSkill->execute([$skillNameClean]);
@@ -183,8 +155,7 @@ function processSkills($pdo, $offerId, $skillNames) {
                 continue;
             }
         }
-        
-        // Link skill to offer
+  
         try {
             $stmtLinkSkill->execute([$offerId, $skillId]);
             $processedCount++;
@@ -196,13 +167,7 @@ function processSkills($pdo, $offerId, $skillNames) {
     return $processedCount;
 }
 
-/**
- * Send notifications to all candidates about new job offer
- * @param PDO $pdo Database connection
- * @param array $jobData Job offer data
- * @param int $offerId Job offer ID
- * @return int Number of notifications sent
- */
+
 function notifyCandidates($pdo, $jobData, $offerId) {
     $notificationCount = 0;
     
@@ -219,7 +184,7 @@ function notifyCandidates($pdo, $jobData, $offerId) {
             return 0;
         }
 
-        // Prepare notification message
+  
         $workTypeEmoji = match($jobData['work_type']) {
             'remote' => '🏠',
             'hybrid' => '🔄',
@@ -232,7 +197,6 @@ function notifyCandidates($pdo, $jobData, $offerId) {
                   htmlspecialchars($jobData['title']) . " - " . 
                   htmlspecialchars($jobData['location']);
         
-        // Send notifications
         foreach ($candidates as $candidate) {
             $notificationSent = addNotification(
                 $pdo,
@@ -257,7 +221,6 @@ function notifyCandidates($pdo, $jobData, $offerId) {
     return $notificationCount;
 }
 
-// Process POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and collect form data
     $formData['title'] = trim($_POST['title'] ?? '');
@@ -267,7 +230,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formData['work_type'] = trim($_POST['work_type'] ?? 'on-site');
     $formData['skills'] = array_filter(array_map('intval', $_POST['skills'] ?? []));
 
-    // Validate required fields
     if (empty($formData['title'])) {
         $errors['title'] = 'Job title is required.';
     } elseif (strlen($formData['title']) > 255) {
@@ -296,30 +258,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['skills'] = 'Please select at least one skill.';
     }
 
-    // Proceed only if validation passes
     if (empty($errors)) {
         try {
-            // Determine if geocoding is needed
             $latitude = null;
             $longitude = null;
             $shouldGeocode = false;
 
-            // Geocoding logic: Only skip for truly remote jobs
             if (!empty($formData['location']) && strtolower($formData['location']) !== 'remote') {
                 switch ($formData['work_type']) {
                     case 'on-site':
                     case 'hybrid':
-                        $shouldGeocode = true; // Both need physical location coordinates
+                        $shouldGeocode = true;
                         break;
                     case 'remote':
-                        $shouldGeocode = false; // Pure remote doesn't need coordinates
+                        $shouldGeocode = false;
                         break;
                     default:
-                        $shouldGeocode = true; // Default to geocoding for safety
+                        $shouldGeocode = true;
                 }
             }
 
-            // Perform geocoding if needed
             if ($shouldGeocode) {
                 $coordinates = geocodeLocation($formData['location']);
                 if ($coordinates) {
@@ -327,10 +285,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Begin database transaction
             $pdo->beginTransaction();
 
-            // Insert job offer
             $stmt = $pdo->prepare("
                 INSERT INTO offers 
                 (recruiter_id, title, description, location, employment_type, work_type, latitude, longitude, created_at) 
@@ -352,7 +308,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $offerId = $pdo->lastInsertId();
             error_log("Job offer created successfully with ID: {$offerId}");
 
-            // Process manually selected skills
             $manualSkillNames = [];
             if (!empty($formData['skills'])) {
                 $skillIds = implode(',', array_map('intval', $formData['skills']));
@@ -363,7 +318,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $manualSkillsCount = processSkills($pdo, $offerId, $manualSkillNames);
 
-            // Extract skills from job description using AI
             $jobDataForAI = [
                 'description' => $formData['description'],
                 'location' => $formData['location'],
@@ -375,14 +329,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $extractedSkills = extractSkillsFromAPI($jobDataForAI);
             $extractedSkillsCount = processSkills($pdo, $offerId, $extractedSkills);
 
-            // Commit the main transaction
             $pdo->commit();
             error_log("Job offer transaction committed successfully");
 
-            // Send notifications (separate from main transaction)
             $notificationCount = notifyCandidates($pdo, $formData, $offerId);
 
-            // Prepare success message
             $totalSkills = $manualSkillsCount + $extractedSkillsCount;
             $workTypeLabel = ucfirst($formData['work_type']);
             
@@ -412,7 +363,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
 
         } catch (Exception $e) {
-            // Rollback transaction on error
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
@@ -424,7 +374,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Store errors and form data for redisplay
     if (!empty($errors)) {
         $_SESSION['form_errors'] = $errors;
         $_SESSION['form_data'] = $formData;
@@ -433,7 +382,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Redirect if accessed directly without POST
 header("Location: post_offer.php");
 exit;
 ?>
