@@ -3,7 +3,6 @@ session_start();
 $baseURL = '/MagLine/Public';
 require_once __DIR__ . '/../Config/database.php';
 
-// Enhanced authentication check
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     header("Location: Login.php");
     exit;
@@ -11,7 +10,6 @@ if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role
 
 $userId = $_SESSION['user_id'];
 
-// Get recruiter info with error handling
 try {
     $stmt = $pdo->prepare("SELECT name, company_name, company_logo, photo FROM users WHERE id = ?");
     $stmt->execute([$userId]);
@@ -22,19 +20,16 @@ try {
         header("Location: ../Auth/logout.php?error=user_data_missing");
         exit;
     }
-    
-    // Extract first name only
+
     $fullName = $user['name'] ?? 'Recruiter';
     $firstName = explode(' ', $fullName)[0];
     $managerName = htmlspecialchars($firstName); 
     $companyName = htmlspecialchars($user['company_name'] ?? 'Your Company');
-    
-    // Fixed logo path to point to Company_Logos directory
+
     $companyLogo = !empty($user['company_logo']) 
         ? '../Public/Uploads/Company_Logos/' . htmlspecialchars($user['company_logo'])
         : '../Public/Assets/default-company.png'; // Default logo
 
-    // Profile picture
     $profilePicture = !empty($user['photo']) 
         ? '../Public/Uploads/profile_pictures/' . htmlspecialchars($user['photo'])
         : '../Public/Assets/default-user.png'; // Default avatar
@@ -44,24 +39,19 @@ try {
     die("Database Error (Recruiter Info): " . $e->getMessage());
 }
 
-// Get dashboard stats with improved error handling
 try {
-    // Offer count
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM offers WHERE recruiter_id = ? AND deleted_at IS NULL");
     $stmt->execute([$userId]);
     $offerCount = $stmt->fetchColumn();
     
-    // Application count
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM applications a JOIN offers o ON a.offer_id = o.id WHERE o.recruiter_id = ? AND o.deleted_at IS NULL");
     $stmt->execute([$userId]);
     $appCount = $stmt->fetchColumn();
-    
-    // Recent offers
+
     $stmt = $pdo->prepare("SELECT id, title, created_at FROM offers WHERE recruiter_id = ? AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 5");
     $stmt->execute([$userId]);
     $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Recent applications
+ 
     $stmt = $pdo->prepare("
         SELECT a.id, a.status, a.created_at, u.name AS candidate_name, o.title AS offer_title 
         FROM applications a
