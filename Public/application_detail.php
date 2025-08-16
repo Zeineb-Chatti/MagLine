@@ -4,13 +4,11 @@ $baseURL = '/MagLine/Public';
 require_once __DIR__ . '/../Config/database.php';
 require_once __DIR__ . '/../App/Helpers/notification_functions.php';
 
-// Verify recruiter authentication
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     header("Location: ../Auth/login.php");
     exit;
 }
 
-// Validate application and candidate IDs
 $applicationId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $candidateId = filter_input(INPUT_GET, 'candidate_id', FILTER_VALIDATE_INT);
 
@@ -19,7 +17,6 @@ if (!$applicationId || !$candidateId) {
     exit;
 }
 
-// Fetch application and candidate details
 try {
     $stmtApp = $pdo->prepare("
         SELECT a.*, o.title AS offer_title, u.name AS recruiter_name
@@ -54,13 +51,11 @@ try {
     exit;
 }
 
-// Handle status updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
     try {
         $status = $_POST['status'];
         $pdo->beginTransaction();
 
-        // Update application status
         $stmt = $pdo->prepare("UPDATE applications SET status = ?, message = ? WHERE id = ?");
         
         if ($status === 'interview' && isset($_POST['interview_date'], $_POST['meet_link'], $_POST['interview_message'])) {
@@ -70,11 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
                 'message' => $_POST['interview_message']
             ]);
             $stmt->execute([$status, $interviewDetails, $applicationId]);
-            
-            // Format interview date
+     
             $interviewDate = date('F j, Y \a\t g:i A', strtotime($_POST['interview_date']));
-            
-            // 1. Create and send detailed interview message
+        
             $interviewMessage = "Dear " . htmlspecialchars($candidate['name']) . ",\n\n";
             $interviewMessage .= "We would like to invite you for an interview regarding your application for the position of " . 
                               htmlspecialchars($application['offer_title']) . ".\n\n";
@@ -91,8 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
                 $candidateId,
                 $interviewMessage
             ]);
-            
-            // 2. Send notification
+      
             $notificationMessage = "Interview Scheduled\n\n" . 
                                  htmlspecialchars($application['offer_title']) . "\n" .
                                  "Check Messages For Details.";
@@ -107,10 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
             
             $flashMessage = "Interview scheduled successfully! Notification sent to candidate.";
         } else {
-            // For other statuses
             $stmt->execute([$status, null, $applicationId]);
-            
-            // Notification
+      
             $statusDisplay = ucfirst($status);
             addNotification(
                 $pdo,
@@ -143,16 +133,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
     }
 }
 
-// [Rest of your file remains exactly the same...]
-// Continue with the existing HTML, CSS, and JavaScript portions
-// ...
-
-// Determine candidate photo
 $candidatePhoto = !empty($candidate['photo'])
     ? '../Public/Uploads/profile_photos/' . $candidate['photo']
     : '../Public/Assets/default-user.png';
 
-// Set header data
 $headerProfilePicture = '../Public/Assets/default-user.png';
 $headerManagerName = 'Recruiter';
 
@@ -227,7 +211,6 @@ try {
             color: var(--info-color);
         }
         
-        /* Flatpickr custom styling - Fixed visibility */
         .flatpickr-calendar {
             background: #2d3748 !important;
             border: 1px solid #4a5568 !important;
