@@ -3,25 +3,21 @@ session_start();
 require_once __DIR__ . '/../Config/database.php';
 require_once __DIR__ . '/../App/Helpers/Haversine.php';
 
-// Strict session validation
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'candidate') {
     header("Location: Login.php");
     exit;
 }
 
-// Get job ID from URL
 $jobId = $_GET['id'] ?? null;
 if (!$jobId) {
     header("Location: jobs.php");
     exit;
 }
 
-// Matching configuration
 const MAX_DISTANCE_KM = 50;
 const SKILLS_WEIGHT = 0.7;
 const GEO_WEIGHT = 0.3;
 
-// Initialize variables
 $jobDetails = [];
 $hasApplied = false;
 $applicationStatus = null;
@@ -34,10 +30,9 @@ $distanceKm = null;
 $locationLabel = 'Unknown';
 $hasLocationData = false;
 $error_message = '';
-$debugInfo = []; // For debugging
+$debugInfo = [];
 
 try {
-    // Get job details and company info with location data
     $stmt = $pdo->prepare(
         "SELECT o.*, u.company_name, u.about_company, u.company_website, u.company_logo,
                 o.latitude as job_latitude, o.longitude as job_longitude, u.location as company_location
@@ -52,7 +47,6 @@ try {
         throw new Exception("Job not found or no longer available");
     }
 
-    // Debug job coordinates
     $debugInfo['job_lat_raw'] = $jobDetails['job_latitude'];
     $debugInfo['job_lon_raw'] = $jobDetails['job_longitude'];
     $debugInfo['job_lat_type'] = gettype($jobDetails['job_latitude']);
@@ -60,7 +54,6 @@ try {
     $debugInfo['job_lat_is_numeric'] = is_numeric($jobDetails['job_latitude']);
     $debugInfo['job_lon_is_numeric'] = is_numeric($jobDetails['job_longitude']);
 
-    // Get candidate profile with skills and location
     $stmt = $pdo->prepare(
         "SELECT u.latitude, u.longitude, 
          GROUP_CONCAT(s.name) AS skills 
@@ -73,12 +66,10 @@ try {
     $stmt->execute([$_SESSION['user_id']]);
     $candidate = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
 
-    // Extract candidate data with proper type conversion
     $candidateSkills = !empty($candidate['skills']) ? explode(',', $candidate['skills']) : [];
     $candidateLat = null;
     $candidateLon = null;
 
-    // More robust coordinate extraction
     if (isset($candidate['latitude']) && $candidate['latitude'] !== null && $candidate['latitude'] !== '') {
         if (is_numeric($candidate['latitude'])) {
             $candidateLat = (float)$candidate['latitude'];
@@ -91,7 +82,6 @@ try {
         }
     }
 
-    // Debug candidate coordinates
     $debugInfo['candidate_lat_raw'] = $candidate['latitude'] ?? 'NULL';
     $debugInfo['candidate_lon_raw'] = $candidate['longitude'] ?? 'NULL';
     $debugInfo['candidate_lat_final'] = $candidateLat;
@@ -99,14 +89,12 @@ try {
     $debugInfo['candidate_lat_type'] = gettype($candidate['latitude'] ?? null);
     $debugInfo['candidate_lon_type'] = gettype($candidate['longitude'] ?? null);
 
-    // Check if candidate has applied and get status
     $stmt = $pdo->prepare("SELECT id, status FROM applications WHERE candidate_id = ? AND offer_id = ?");
     $stmt->execute([$_SESSION['user_id'], $jobId]);
     $application = $stmt->fetch(PDO::FETCH_ASSOC);
     $hasApplied = $application !== false;
     $applicationStatus = $hasApplied ? strtolower($application['status']) : null;
 
-    // Get required skills for this job
     $stmt = $pdo->prepare(
         "SELECT s.name FROM offer_skills os
          JOIN skills s ON os.skill_id = s.id
@@ -115,14 +103,12 @@ try {
     $stmt->execute([$jobId]);
     $jobSkillsList = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
-    // Calculate matching scores
     $commonSkills = count(array_intersect(
         array_map('strtolower', $jobSkillsList),
         array_map('strtolower', $candidateSkills)
     ));
     $skillsScore = !empty($jobSkillsList) ? round(($commonSkills / count($jobSkillsList)) * 100) : 0;
 
-    // Extract job coordinates with proper type conversion
     $jobLat = null;
     $jobLon = null;
     
@@ -141,7 +127,6 @@ try {
     $debugInfo['job_lat_final'] = $jobLat;
     $debugInfo['job_lon_final'] = $jobLon;
 
-    // Calculate geographic information if ALL coordinates exist and are valid
     $debugInfo['all_coords_valid'] = ($candidateLat !== null && $candidateLon !== null && $jobLat !== null && $jobLon !== null);
     
     if ($candidateLat !== null && $candidateLon !== null && $jobLat !== null && $jobLon !== null) {
@@ -177,7 +162,6 @@ try {
         ];
     }
 
-    // Combined score calculation
     if ($hasLocationData) {
         $matchPercentage = round(($skillsScore * SKILLS_WEIGHT) + ($geoScore * GEO_WEIGHT));
     } else {
@@ -244,7 +228,6 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
             --error-red: #F44336;
         }
 
-        /* DEBUG PANEL */
         .debug-panel {
             background: rgba(255, 0, 0, 0.1);
             border: 2px solid #ff0000;
@@ -653,7 +636,6 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
             text-decoration: underline;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .job-header-card {
                 padding: 1.5rem;
@@ -689,7 +671,6 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
             }
         }
 
-        /* Work Type Badge Styles */
 .work-type-badge {
     display: inline-flex;
     align-items: center;
@@ -744,7 +725,7 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
                 <?php if (isset($jobDetails['title'])): ?>
                 <div class="job-header-card">
                     <?php 
-                        // Determine colors based on scores
+                    
                         $skillsColor = $skillsScore >= 70 ? 'var(--space-cyan)' : 
                                       ($skillsScore >= 40 ? 'var(--space-blue)' : 'var(--space-pink)');
                         $geoColor = $hasLocationData ? ($geoScore >= 70 ? 'var(--space-cyan)' : 
@@ -975,7 +956,6 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
         </main>
     </div>
 
-    <!-- Toast notifications -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
 
     <?php include __DIR__ . '/Includes/footer.php'; ?>
@@ -1039,8 +1019,6 @@ $companyLogoPath = !empty($jobDetails['company_logo'])
                     </div>
                 `;
                 toastContainer.appendChild(toastEl);
-                
-                // Auto remove after 5 seconds
                 setTimeout(() => {
                     toastEl.classList.remove('show');
                     setTimeout(() => toastEl.remove(), 300);
