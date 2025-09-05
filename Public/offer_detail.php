@@ -3,17 +3,14 @@ session_start();
 $baseURL = '/MagLine/Public';
 require_once __DIR__ . '/../Config/database.php';
 
-// Enable all errors for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Validate session and role
 if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     header("Location: ../Auth/login.php");
     exit;
 }
 
-// Validate and sanitize offer ID
 $offerId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$offerId || $offerId < 1) {
     header("Location: Dashboard_Recruiter.php?error=invalid_id");
@@ -23,7 +20,6 @@ if (!$offerId || $offerId < 1) {
 $recruiterId = $_SESSION['user_id'];
 
 try {
-    // Fetch offer details from your database structure
     $stmt = $pdo->prepare("
         SELECT 
             o.id,
@@ -50,7 +46,6 @@ try {
         exit;
     }
 
-    // Fetch skills related to the job offer
     $stmtSkills = $pdo->prepare("
         SELECT s.name 
         FROM offer_skills os
@@ -60,11 +55,9 @@ try {
     $stmtSkills->execute([$offerId]);
     $skills = $stmtSkills->fetchAll(PDO::FETCH_COLUMN);
 
-    // Format dates beautifully
     $createdDate = date('M j, Y \a\t g:i A', strtotime($offer['created_at']));
     $daysAgo = floor((time() - strtotime($offer['created_at'])) / (60 * 60 * 24));
 
-    // Get applications data with status breakdown
     $applicationCount = 0;
     $applications = [];
     $statusCounts = [
@@ -100,7 +93,6 @@ try {
         ];
     }
 
-    // Get recent applications with candidate details
     $stmt = $pdo->prepare("
         SELECT 
             a.id, 
@@ -883,7 +875,6 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Enhanced animations on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Stagger animation for cards
             const cards = document.querySelectorAll('.premium-card, .stat-card');
@@ -898,7 +889,6 @@ try {
                 }, index * 100);
             });
 
-            // Add hover effects for interactive elements
             const interactiveElements = document.querySelectorAll('.application-item, .skill-tag, .action-btn');
             interactiveElements.forEach(element => {
                 element.addEventListener('mouseenter', function() {
@@ -911,7 +901,6 @@ try {
             });
         });
 
-        // Enhanced copy to clipboard function
         function copyJobLink() {
             const linkInput = document.getElementById('jobShareLink');
             linkInput.select();
@@ -926,7 +915,6 @@ try {
             });
         }
 
-        // Social media sharing functions
         function shareJob(platform) {
             const jobTitle = <?= json_encode($offer['title']) ?>;
             const companyName = <?= json_encode($offer['company_name']) ?>;
@@ -949,7 +937,6 @@ try {
             }
         }
 
-        // Show toast notification
         function showToast(message) {
             const toastElement = document.getElementById('successToast');
             const toastMessage = document.getElementById('toastMessage');
@@ -959,7 +946,6 @@ try {
             toast.show();
         }
 
-        // Confirm job closure and update database
         function confirmToggleJobStatus(action) {
             const currentStatus = '<?= $offer['status'] ?>';
             let confirmMessage = '';
@@ -977,7 +963,7 @@ try {
             }
             
             if (confirm(confirmMessage)) {
-                // Send request to toggle job status
+        
                 fetch('toggle_job_status.php', {
                     method: 'POST',
                     headers: {
@@ -992,10 +978,8 @@ try {
                 .then(data => {
                     if (data.success) {
                         showToast(successMessage);
-                        // Hide the modal
                         const modal = bootstrap.Modal.getInstance(document.getElementById('actionModal'));
                         modal.hide();
-                        // Reload the page to reflect the change
                         setTimeout(() => {
                             location.reload();
                         }, 1500);
@@ -1010,7 +994,6 @@ try {
             }
         }
 
-        // Print function enhancement
         function printJobDetails() {
             const printContent = `
                 <div style="font-family: Inter, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
@@ -1059,23 +1042,19 @@ try {
             printWindow.print();
         }
 
-        // Enhanced keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + K to open actions modal
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 const modal = new bootstrap.Modal(document.getElementById('actionModal'));
                 modal.show();
             }
-            
-            // Ctrl/Cmd + P to print
+
             if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
                 e.preventDefault();
                 printJobDetails();
             }
         });
 
-        // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1089,14 +1068,13 @@ try {
             });
         });
 
-        // Auto-refresh application count every 30 seconds
         setInterval(async function() {
             try {
                 const response = await fetch(`get_application_count.php?offer_id=<?= $offerId ?>`);
                 const data = await response.json();
                 
                 if (data.count !== undefined) {
-                    // Update application count in the header
+
                     const countElements = document.querySelectorAll('.application-count');
                     countElements.forEach(el => {
                         el.textContent = data.count + (data.count === 1 ? ' application' : ' applications');
