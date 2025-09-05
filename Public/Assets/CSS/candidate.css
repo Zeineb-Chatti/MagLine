@@ -1,8 +1,3 @@
-/* ========================================
-   CANDIDATE DASHBOARD - MATCHING RECRUITER THEME
-   ======================================== */
-
-/* --- Root Variables for Dark Theme (Matching Recruiter) --- */
 :root {
     --primary-color: #3A86FF;
     --primary-hover: #2a6fdb;
@@ -17,7 +12,6 @@
     --danger-color: #dc3545;
     --info-color: #17a2b8;
     
-    /* Additional variables for enhanced styling */
     --dark-hover: rgba(255, 255, 255, 0.05);
     --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.2);
     --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -25,7 +19,6 @@
     --transition: all 0.3s ease;
 }
 
-/* --- Base Body & Global Styles --- */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -1902,7 +1895,6 @@ body.dark-theme {
     border-top: 1px solid var(--dark-border);
 }
 
-/* Ensure proper z-index stacking */
 .modal {
     z-index: 1060;
 }
@@ -1912,7 +1904,6 @@ body.dark-theme {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Fix for modal scrolling */
 .modal-dialog-scrollable .modal-content {
     max-height: calc(100vh - 3.5rem);
 }
@@ -1922,7 +1913,6 @@ body.dark-theme {
    CANDIDATE JOB DETAIL - PREMIUM DARK THEME
    ======================================== */
 
-/* --- Enhanced Root Variables --- */
 :root {
     --primary-color: #3A86FF;
     --primary-hover: #2a6fdb;
@@ -1937,24 +1927,19 @@ body.dark-theme {
     --danger-color: #EF476F;
     --info-color: #118AB2;
     
-    /* Glassmorphism Effects */
     --glass-bg: rgba(26, 26, 46, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
-    
-    /* New Gradients */
+
     --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, #5A9CFF 100%);
     --danger-gradient: linear-gradient(135deg, var(--danger-color) 0%, #D43A5F 100%);
     --success-gradient: linear-gradient(135deg, var(--success-color) 0%, #05B58B 100%);
-    
-    /* Shadows */
+
     --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-primary: 0 10px 20px rgba(58, 134, 255, 0.2);
     
-    /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- Job Detail Container --- */
 .job-detail-container {
     max-width: 1200px;
     margin: 2rem auto;
@@ -1967,7 +1952,6 @@ body.dark-theme {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Job Header --- */
 .job-header {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -2251,7 +2235,6 @@ body.dark-theme {
     text-decoration: underline;
 }
 
-/* --- Job Details List --- */
 .job-details-list {
     list-style: none;
     padding: 0;
@@ -2302,7 +2285,6 @@ body.dark-theme {
     color: var(--dark-text);
 }
 
-/* --- Buttons --- */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -2416,7 +2398,6 @@ body.dark-theme {
     box-shadow: 0 15px 40px rgba(58,134,255,0.5);
 }
 
-/* --- Animation Classes --- */
 .fade-in {
     animation: fadeIn 0.6s ease-out forwards;
 }
@@ -2445,7 +2426,6 @@ body.dark-theme {
     box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
 
-/* --- Skill Tags --- */
 .skill-tag {
     display: inline-block;
     background: rgba(58,134,255,0.1);
@@ -2521,7 +2501,6 @@ body.dark-theme {
     animation: pulse 2s infinite;
 }
 
-/* --- Section Dividers --- */
 .section-divider {
     position: relative;
     height: 1px;
@@ -2542,7 +2521,6 @@ body.dark-theme {
     box-shadow: 0 0 10px var(--primary-color);
 }
 
-/* Add this to your CSS */
 .company-logo-container {
     width: 100px;
     height: 100px;
@@ -2581,7 +2559,7 @@ body.dark-theme {
     box-shadow: 0 8px 20px rgba(58,134,255,0.2);
     border-color: var(--primary-color);
 }
-/* Status Badges */
+
 .status-badge {
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
@@ -2686,13 +2664,11 @@ body.dark-theme {
     margin-left: 8px;
 }
 
-/* Add to your messages.php styles */
 #conversationsUl {
     min-height: 200px;
     position: relative;
 }
 
-/* Animation for loading */
 @keyframes pulse {
     0% { opacity: 0.6; }
     50% { opacity: 1; }
@@ -2702,7 +2678,7 @@ body.dark-theme {
 .loading-conversations {
     animation: pulse 1.5s infinite;
 }
-/* Add these CSS rules */
+
 .conversations-list {
     will-change: transform;
     contain: content;
@@ -2717,7 +2693,6 @@ body.dark-theme {
     overflow-anchor: none; /* Prevents auto-scroll jumps */
 }
 
-/* Loading state */
 .loading-conversations {
     opacity: 0;
     animation: fadeIn 0.3s ease forwards;
