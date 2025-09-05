@@ -1,4 +1,4 @@
-/* Main Settings Layout */
+
 .main-wrapper {
     display: flex;
     min-height: calc(100vh - 60px);
@@ -7,16 +7,13 @@
 .main-content {
     flex: 1;
     padding: 20px;
-    /* Adjust margin for responsiveness or remove if sidebar is toggleable */
     margin-left: 50px; 
 }
 
 .settings-tabs {
     display: flex;
-    /* Changed border-bottom to a more generic border property for consistency */
     border-bottom: 1px solid var(--border-color); 
     margin-bottom: 20px;
-    /* Ensure tabs wrap on smaller screens if necessary */
     flex-wrap: wrap; 
 }
 
@@ -26,7 +23,6 @@
     color: var(--text-color);
     border-bottom: 2px solid transparent;
     transition: all 0.3s;
-    /* Make sure text is centered for better appearance */
     text-align: center; 
 }
 
@@ -70,18 +66,18 @@
 /* Logo Upload Styles */
 .logo-upload-section {
     margin-bottom: 2rem;
-    text-align: center; /* Ensure contents are centered */
+    text-align: center;
 }
 
 .logo-preview-container {
     position: relative;
-    width: 180px; /* Increased size for better visibility */
-    height: 180px; /* Increased size for better visibility */
-    margin: 0 auto 20px; /* Centered with bottom margin */
-    display: flex; /* Use flexbox for centering image and cropper */
+    width: 180px; 
+    height: 180px; 
+    margin: 0 auto 20px; 
+    display: flex; 
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Hide overflow from cropper */
+    overflow: hidden; 
 }
 
 .logo-preview {
@@ -91,7 +87,6 @@
     border-radius: 50%;
     border: 3px solid var(--primary-color);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /* Ensure it's not hidden by cropper initially */
     z-index: 1; 
 }
 
@@ -103,37 +98,32 @@
     height: 100%;
     background: var(--card-bg-light);
     z-index: 10;
-    /* Ensure visibility for debugging if needed */
-    /* border: 1px dashed red; */ 
-    display: flex; /* Use flexbox to center image inside */
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
 
 .cropper-wrapper {
-    width: 100%; /* Must fill its container */
-    height: 100%; /* Must fill its container */
-    display: flex; /* Flex to center image if smaller than wrapper */
+    width: 100%;
+    height: 100%; 
+    display: flex; 
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Important for cropper to function correctly */
+    overflow: hidden;
 }
 
-/* Crucial: Style for the image *inside* the cropper */
 #imageToCrop {
-    display: block; /* Important for cropper to work */
-    max-width: 100%; /* Ensure image fits within its container */
-    max-height: 100%; /* Ensure image fits within its container */
-    /* Optional: background-color to fill transparent areas before cropping */
+    display: block;
+    max-width: 100%; 
+    max-height: 100%; 
     background-color: var(--card-bg); 
 }
 
-/* Adjust button layout for logo section */
 .logo-upload-section > div.mt-3 {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Space between buttons */
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 10px; 
+    flex-wrap: wrap; 
 }
 
 
@@ -171,7 +161,6 @@
     --primary-color: #4299e1;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 992px) {
     .main-content {
         margin-left: 0;
@@ -186,18 +175,18 @@
 @media (max-width: 576px) {
     .settings-tabs {
         flex-direction: column;
-        align-items: stretch; /* Stretch tabs to full width */
+        align-items: stretch;
     }
     
     .settings-tab {
         padding: 8px 15px;
-        border-bottom: none; /* Remove individual tab borders */
-        border-left: 2px solid transparent; /* Use left border for active state */
+        border-bottom: none; 
+        border-left: 2px solid transparent; 
     }
 
     .settings-tab.active {
-        border-bottom-color: transparent; /* Remove bottom border */
-        border-left-color: var(--primary-color); /* Apply left border */
+        border-bottom-color: transparent; 
+        border-left-color: var(--primary-color); 
     }
     .logo-upload-section > div.mt-3 {
         flex-direction: column;
