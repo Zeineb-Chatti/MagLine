@@ -7,12 +7,10 @@ if (!isset($_SESSION['user_id'], $_SESSION['user_role']) || $_SESSION['user_role
     header("Location: ../Auth/login.php");
     exit;
 }
-// In your common include file or config
 $headerManagerName = $headerManagerName ?? $_SESSION['user_name'] ?? 'User';
 $recruiterId = $_SESSION['user_id'];
 global $pdo;
 
-// Fetch recruiter data
 $recruiterData = [];
 try {
     $stmt = $pdo->prepare("SELECT company_name, company_logo FROM users WHERE id = ?");
@@ -22,7 +20,6 @@ try {
     error_log("Error fetching recruiter data: " . $e->getMessage());
 }
 
-// Fetch reports data
 $reportsData = [
     'total_offers' => 0,
     'total_applications' => 0,
@@ -34,27 +31,22 @@ $reportsData = [
 ];
 
 try {
-    // Total offers
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM offers WHERE recruiter_id = ?");
     $stmt->execute([$recruiterId]);
     $reportsData['total_offers'] = $stmt->fetchColumn();
 
-    // Total applications
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM applications a INNER JOIN offers o ON a.offer_id = o.id WHERE o.recruiter_id = ?");
     $stmt->execute([$recruiterId]);
     $reportsData['total_applications'] = $stmt->fetchColumn();
 
-    // Active offers
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM offers WHERE recruiter_id = ? AND status = 'active'");
     $stmt->execute([$recruiterId]);
     $reportsData['active_offers'] = $stmt->fetchColumn();
 
-    // Recent applications (last 7 days)
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM applications a INNER JOIN offers o ON a.offer_id = o.id WHERE o.recruiter_id = ? AND a.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)");
     $stmt->execute([$recruiterId]);
     $reportsData['recent_applications'] = $stmt->fetchColumn();
 
-    // Applications chart data (last 6 months)
     $stmt = $pdo->prepare("
         SELECT 
             DATE_FORMAT(a.created_at, '%Y-%m') AS month,
@@ -69,7 +61,6 @@ try {
     $stmt->execute([$recruiterId]);
     $reportsData['applications_chart'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Offer status chart data
     $stmt = $pdo->prepare("
         SELECT 
             status,
@@ -81,7 +72,6 @@ try {
     $stmt->execute([$recruiterId]);
     $reportsData['status_chart'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Recent activities (last 5 activities)
     $stmt = $pdo->prepare("
         SELECT 
             a.id,
@@ -102,7 +92,6 @@ try {
     error_log("Error fetching reports data: " . $e->getMessage());
 }
 
-// Set $currentPage for sidebar active state
 $currentPage = basename($_SERVER['PHP_SELF']); 
 ?>
 
@@ -112,8 +101,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recruiter Analytics | <?= htmlspecialchars($recruiterData['company_name'] ?? 'MagLine') ?></title>
-    
-    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -138,7 +125,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     font-size: 1rem;
     margin-top: 0;
     text-align: center;
-    max-width: 600px; /* Optional: limit width for better readability */
+    max-width: 600px; 
 }</style>
 </head>
 <body class="dark-theme">
@@ -158,7 +145,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <?php endif; ?>
                 
                 <div class="reports-container">
-                    <!-- Page Header -->
                     <div class="page-header mb-4">
                         <div>
                             <h1 class="page-title">
@@ -169,8 +155,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                             </p>
                         </div>
                     </div>
-                    
-                    <!-- Stats Grid -->
+       
                     <div class="stats-grid mb-4">
                         <div class="stat-card">
                             <div class="stat-icon bg-primary-light">
@@ -212,8 +197,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Charts Section -->
+  
                     <div class="charts-section mb-4">
                         <div class="chart-card">
                             <div class="chart-header">
@@ -241,11 +225,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </main>
     </div>
 
-    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
        <script>
-        // Applications Chart
         const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
         const applicationsChart = new Chart(applicationsCtx, {
             type: 'line',
@@ -276,7 +258,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             }
         });
 
-        // Offer Status Chart
         const statusCtx = document.getElementById('offerStatusChart').getContext('2d');
         const statusChart = new Chart(statusCtx, {
             type: 'doughnut',
