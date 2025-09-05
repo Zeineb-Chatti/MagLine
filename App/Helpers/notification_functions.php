@@ -1,25 +1,20 @@
 <?php
-/**
- * Adds a notification to the database
- */
+
 function addNotification($pdo, $userId, $message, $type = 'system', $relatedId = null) {
     try {
-        // Verify user exists
         $checkUser = $pdo->prepare("SELECT id FROM users WHERE id = ?");
         $checkUser->execute([(int)$userId]);
         if (!$checkUser->fetch()) {
             error_log("Notification error: Invalid user ID {$userId}");
             return false;
         }
-        
-        // Validate notification type
+
         $validTypes = ['application', 'status_change', 'job_update', 'system'];
         if (!in_array($type, $validTypes)) {
             $type = 'system';
             error_log("Notification warning: Invalid type '{$type}', defaulting to 'system'");
         }
-        
-        // Insert notification
+
         $stmt = $pdo->prepare("
             INSERT INTO notifications 
             (user_id, message, notification_type, related_id, is_read, created_at) 
@@ -45,9 +40,6 @@ function addNotification($pdo, $userId, $message, $type = 'system', $relatedId =
     }
 }
 
-/**
- * Gets user notifications
- */
 function getUserNotifications($pdo, $userId, $unreadOnly = false, $limit = 50) {
     try {
         $sql = "SELECT id, message, notification_type as type, related_id, is_read, created_at 
@@ -71,9 +63,6 @@ function getUserNotifications($pdo, $userId, $unreadOnly = false, $limit = 50) {
     }
 }
 
-/**
- * Marks notification as read
- */
 function markNotificationAsRead($pdo, $notificationId, $userId) {
     try {
         $stmt = $pdo->prepare("
@@ -88,9 +77,6 @@ function markNotificationAsRead($pdo, $notificationId, $userId) {
     }
 }
 
-/**
- * Gets unread notification count
- */
 function getUnreadNotificationCount($pdo, $userId) {
     try {
         $stmt = $pdo->prepare("
@@ -106,9 +92,6 @@ function getUnreadNotificationCount($pdo, $userId) {
     }
 }
 
-/**
- * Cleans up old notifications
- */
 function deleteOldNotifications($pdo, $daysOld = 7) {
     try {
         $stmt = $pdo->prepare("
