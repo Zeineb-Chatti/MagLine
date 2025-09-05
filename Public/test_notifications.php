@@ -1,6 +1,4 @@
 <?php
-// Create this file as test_notifications.php in your project root
-// Run this to debug the notification issue
 
 session_start();
 require_once __DIR__ . '/../config/database.php';
@@ -8,7 +6,6 @@ require_once __DIR__ . '/../App/Helpers/notification_functions.php';
 
 echo "<h1>Notification Debug Script</h1>";
 
-// 1. Test database connection
 echo "<h2>1. Testing Database Connection</h2>";
 try {
     $stmt = $pdo->query("SELECT 1");
@@ -18,7 +15,6 @@ try {
     exit;
 }
 
-// 2. Check users table structure
 echo "<h2>2. Users Table Structure</h2>";
 try {
     $stmt = $pdo->query("DESCRIBE users");
@@ -37,7 +33,6 @@ try {
     echo "❌ Error checking users table: " . $e->getMessage() . "<br>";
 }
 
-// 3. Check all users and their roles
 echo "<h2>3. All Users in Database</h2>";
 try {
     $stmt = $pdo->query("SELECT id, role, name, email FROM users ORDER BY role, id");
@@ -63,10 +58,8 @@ try {
     echo "❌ Error fetching users: " . $e->getMessage() . "<br>";
 }
 
-// 4. Check specifically for candidates
 echo "<h2>4. Candidate Users</h2>";
 try {
-    // Try different possible role values
     $possibleRoles = ['candidate', 'candidat', 'candidates', 'Candidate'];
     
     foreach ($possibleRoles as $role) {
@@ -85,7 +78,6 @@ try {
     echo "❌ Error checking candidates: " . $e->getMessage() . "<br>";
 }
 
-// 5. Check notifications table structure
 echo "<h2>5. Notifications Table Structure</h2>";
 try {
     $stmt = $pdo->query("DESCRIBE notifications");
@@ -105,7 +97,6 @@ try {
     echo "You need to create the notifications table!<br>";
 }
 
-// 6. Check existing notifications
 echo "<h2>6. Existing Notifications</h2>";
 try {
     $stmt = $pdo->query("SELECT * FROM notifications ORDER BY created_at DESC LIMIT 10");
@@ -133,10 +124,8 @@ try {
     echo "❌ Error checking notifications: " . $e->getMessage() . "<br>";
 }
 
-// 7. Test adding a notification manually
 echo "<h2>7. Testing Manual Notification</h2>";
 try {
-    // Find the first candidate
     $stmt = $pdo->query("SELECT id, name FROM users WHERE role IN ('candidate', 'candidat') LIMIT 1");
     $testCandidate = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -169,7 +158,6 @@ try {
     echo "❌ Error testing notification: " . $e->getMessage() . "<br>";
 }
 
-// 8. Check recent job offers
 echo "<h2>8. Recent Job Offers</h2>";
 try {
     $stmt = $pdo->query("SELECT id, title, recruiter_id, created_at FROM offers ORDER BY created_at DESC LIMIT 5");
