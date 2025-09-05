@@ -169,40 +169,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['cropped_manager_image']) && !empty($_POST['cropped_manager_image'])) {
     $imageData = $_POST['cropped_manager_image'];
     
-    // Ensure upload directory exists
     $uploadDir = __DIR__ . '/../Public/Uploads/Manager_Photos/';
     if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
 
-    // Generate unique filename
     $fileName = 'manager_' . $recruiterId . '_' . time() . '.png';
     $targetFile = $uploadDir . $fileName;
 
-    // Process the image data
     $imageData = str_replace('data:image/png;base64,', '', $imageData);
     $imageData = str_replace(' ', '+', $imageData);
     $imageData = base64_decode($imageData);
 
     if ($imageData !== false && file_put_contents($targetFile, $imageData)) {
         try {
-            // Get old photo path before updating
             $oldPhoto = $recruiterData['manager_photo'] ?? '';
-            
-            // Update database with new photo filename
+
             $stmt = $pdo->prepare("UPDATE users SET manager_photo = ? WHERE id = ?");
             $stmt->execute([$fileName, $recruiterId]);
 
-            // Delete old photo if it exists
             if ($oldPhoto && file_exists($uploadDir . $oldPhoto)) {
                 unlink($uploadDir . $oldPhoto);
             }
 
-            // Update session and local data
             $_SESSION['manager_photo'] = $fileName;
             $recruiterData['manager_photo'] = $fileName;
 
-            // Refresh the recruiter data
             $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
             $stmt->execute([$recruiterId]);
             $recruiterData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -215,7 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: settings.php?tab=profile");
             exit;
         } catch (PDOException $e) {
-            // Clean up if database update fails
             if (file_exists($targetFile)) {
                 unlink($targetFile);
             }
@@ -270,8 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'type' => 'success',
                     'message' => 'Company logo updated successfully'
                 ];
-                
-                // Refresh the recruiter data after update
+
                 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
                 $stmt->execute([$recruiterId]);
                 $recruiterData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -392,14 +382,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         session_unset();
                         session_destroy();
                         
-                        // Start new session for flash message
                         session_start();
                         $_SESSION['flash_message'] = [
                             'type' => 'success',
                             'message' => 'Your account has been permanently deleted'
                         ];
-                        
-                        // Redirect to login page with success message
+        
                         header("Location: ../Auth/SignUp.php");
                         exit;
                         
@@ -417,7 +405,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Set correct image paths
 $defaultLogo = '/Public/Assets/default-company.png';
 $logoUrl = !empty($recruiterData['company_logo']) 
     ? '/Public/Uploads/Company_Logos/' . $recruiterData['company_logo']
@@ -446,9 +433,7 @@ $activeTab = $_GET['tab'] ?? 'profile';
     <link href="../Public/Assets/CSS/main.css" rel="stylesheet">
     <link rel="icon" href="../Public/Assets/favicon.png" type="image/x-icon">
     <style>
-        /* Add this to your settings.css file or main.css */
 
-/* Company Size Dropdown - Dark Theme */
 select.form-control {
     background-color: #2a3042;
     color: #e0e0e0;
@@ -495,13 +480,11 @@ select.form-control {
     padding-right: 2.5rem;
 }
 
-/* Hover state */
 select.form-control:hover {
     border-color: #4a8cff;
     background-color: #31384d;
 }
 
-/* Disabled state */
 select.form-control:disabled {
     background-color: #252a3a;
     color: #6c757d;
@@ -509,7 +492,6 @@ select.form-control:disabled {
     opacity: 0.7;
 }
 
-/* Error state */
 select.form-control.is-invalid {
     border-color: #dc3545;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3E%3C/svg%3E"), 
@@ -928,7 +910,6 @@ select.form-control.is-invalid:focus {
                 saveManagerCropBtn.classList.add('d-none');
                 cancelManagerCropBtn.classList.add('d-none');
                 
-                // Create a temporary form for submission
                 const tempForm = document.createElement('form');
                 tempForm.method = 'POST';
                 tempForm.action = window.location.href;
@@ -953,7 +934,6 @@ select.form-control.is-invalid:focus {
             managerPhotoUpload.value = '';
         });
 
-        // Company Logo Upload and Cropping
         const chooseLogoBtn = document.getElementById('chooseLogoBtn');
         const logoUpload = document.getElementById('logoUpload');
         const logoPreview = document.getElementById('logoPreview');
@@ -1033,7 +1013,6 @@ select.form-control.is-invalid:focus {
                 saveLogoCropBtn.classList.add('d-none');
                 cancelLogoCropBtn.classList.add('d-none');
                 
-                // Create a temporary form for submission
                 const tempForm = document.createElement('form');
                 tempForm.method = 'POST';
                 tempForm.action = window.location.href;
@@ -1058,7 +1037,6 @@ select.form-control.is-invalid:focus {
             logoUpload.value = '';
         });
 
-        // Delete account form submission
         document.getElementById('deleteAccountForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             
