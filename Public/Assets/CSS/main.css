@@ -1,4 +1,4 @@
-/* --- Root Variables for Dark Theme --- */
+
 :root {
     --primary-color: #3A86FF;
     --primary-hover: #2a6fdb;
@@ -14,7 +14,6 @@
     --info-color: #17a2b8;
 }
 
-/* --- Base Body & Global Styles --- */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -38,7 +37,6 @@ body {
     padding: 0.75rem 1.5rem;
 }
 
-/* --- Recruiter Header Styles --- */
 .recruiter-header {
     background: var(--dark-card);
     color: var(--dark-text);
@@ -184,7 +182,6 @@ body {
     cursor: pointer;
 }
 
-/* --- Main Layout Wrapper --- */
 .main-wrapper {
     display: flex;
     flex: 1;
@@ -192,7 +189,6 @@ body {
     z-index: 1;
 }
 
-/* --- Sidebar Styles --- */
 .recruiter-sidebar {
     width: 250px;
     background: var(--dark-card);
@@ -281,7 +277,6 @@ body {
     font-weight: 600;
 }
 
-/* --- Main Content Area --- */
 .main-content {
     flex-grow: 1;
     padding: 2rem;
@@ -297,7 +292,6 @@ body {
     min-height: calc(100vh - 70px);
 }
 
-/* --- Dashboard Specific Styles --- */
 .welcome-section {
     background: var(--dark-card);
     padding: 2rem;
