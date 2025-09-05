@@ -18,8 +18,6 @@ if (!$sender_id || !is_numeric($sender_id)) {
 }
 
 try {
-    // Mark all unread messages from this sender as read
-    // Change the query to:
 $stmt = $pdo->prepare("
     UPDATE messages 
     SET is_read = 1 
