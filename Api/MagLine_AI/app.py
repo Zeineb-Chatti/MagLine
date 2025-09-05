@@ -230,13 +230,13 @@ def clean_skill(skill: str) -> str:
 
 
 def is_valid_skill(skill: str, is_job_description: bool = False) -> bool:
-    """Enhanced skill validation with better logic."""
+    """Skill validation with better logic."""
     if not skill or len(skill.strip()) < MIN_SKILL_LENGTH:
         return False
 
     skill = skill.strip().lower()
 
-    # Skip only exact matches to blacklist
+    # We'll skip only exact matches to blacklist
     if skill in base_blacklist:
         return False
 
@@ -252,7 +252,7 @@ def is_valid_skill(skill: str, is_job_description: bool = False) -> bool:
 
 
 def merge_similar_skills(skills: Set[str]) -> Set[str]:
-    """Enhanced skill consolidation with more variations."""
+    """Skill consolidation with more variations."""
     skill_variations = {
         "js": "JavaScript",
         "nlp": "Natural Language Processing",
@@ -288,7 +288,7 @@ def merge_similar_skills(skills: Set[str]) -> Set[str]:
 
 
 def extract_skills_from_text(text: str, is_job_description: bool = False) -> List[str]:
-    """Enhanced skill extraction pipeline with better NER handling."""
+    """Skill extraction pipeline with NER handling."""
     if not text.strip():
         return []
 
@@ -307,7 +307,7 @@ def extract_skills_from_text(text: str, is_job_description: bool = False) -> Lis
     except Exception as e:
         logger.error(f"NER failed: {str(e)}")
 
-    # Enhanced dictionary matching
+    # Dictionary matching
     text_lower = re.sub(r'[^\w\s+#./\-]', ' ', text).lower()
     dict_skills = {
         skill for skill in manual_skill_set
@@ -342,7 +342,7 @@ def categorize_skill(skill: str) -> str:
 
 
 
-# Updated API Endpoints
+# API Endpoints
 
 @app.route('/validate_cv', methods=['POST'])
 def validate_cv():
