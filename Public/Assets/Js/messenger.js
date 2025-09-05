@@ -1,4 +1,3 @@
-// Messenger System - Complete with Read Status Functionality - FIXED VERSION
 if (typeof window.messengerGlobals === 'undefined') {
     window.messengerGlobals = {
         currentChatUserId: null,
@@ -164,7 +163,6 @@ async function fetchNewMessagesOnly() {
     }
 }
 
-// ENHANCED loadConversations with better unread handling
 async function loadConversations() {
     const container = document.getElementById('conversationsUl');
     if (!container) return;
@@ -368,14 +366,11 @@ async function markMessagesAsReadServerOnly(senderId) {
     }
 }
 
-// Enhanced markMessagesAsRead with immediate UI update
 async function markMessagesAsRead(senderId) {
     try {
-        // Update UI immediately
         updateConversationUnreadStatus(senderId);
         updateMessageReadStatuses();
-        
-        // Then update server
+
         const response = await fetch('mark_messages_read.php', {
             method: 'POST',
             headers: {
@@ -395,7 +390,6 @@ async function markMessagesAsRead(senderId) {
     }
 }
 
-// Enhanced updateConversationUnreadStatus function
 function updateConversationUnreadStatus(userId) {
     const conversationItem = document.querySelector(`.conversation-item[data-user-id="${userId}"]`);
     if (conversationItem) {
@@ -413,7 +407,6 @@ function updateConversationUnreadStatus(userId) {
         }
     }
     
-    // Update the cached data immediately
     if (window.messengerGlobals.lastConversationData) {
         const conversation = window.messengerGlobals.lastConversationData.conversations.find(
             c => c.id == userId
@@ -438,7 +431,6 @@ function updateMessageReadStatuses() {
     });
 }
 
-// FIXED openChat function with immediate unread clearing
 async function openChat(userId, userName, photoPath = null) {
     return new Promise((resolve) => {
         if (!window.messengerGlobals.messengerInitialized) {
@@ -464,7 +456,6 @@ async function openChat(userId, userName, photoPath = null) {
         window.messengerGlobals.lastMessageId = null;
         window.messengerGlobals.totalMessagesLoaded = 0;
 
-        // IMMEDIATELY clear unread count in UI
         updateConversationUnreadStatus(userId);
 
         const photoUrl = getPhotoUrl(photoPath, userName);
@@ -497,7 +488,6 @@ async function openChat(userId, userName, photoPath = null) {
             item.classList.toggle('active', item.dataset.userId == userId);
         });
 
-        // Mark as read immediately, don't wait for loadMessages
         markMessagesAsRead(userId);
 
         loadMessages().then(() => {
