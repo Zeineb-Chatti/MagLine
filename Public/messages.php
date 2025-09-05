@@ -2,47 +2,39 @@
 session_start();
 require_once __DIR__ . '/../Config/database.php';
 
-// Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: Login.php");
     exit;
 }
 
-// Get current user data
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT id, name, email, photo, role, manager_photo FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $current_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Verify we got user data
+
 if (!$current_user) {
-    // Handle case where user doesn't exist
     session_destroy();
     header("Location: Login.php");
     exit;
 }
 
-// Set role based on database value (with fallback to session if not available)
 if (!empty($current_user['role'])) {
     $_SESSION['role'] = $current_user['role'];
 } elseif (!isset($_SESSION['role'])) {
     $_SESSION['role'] = 'candidate'; // Default fallback
 }
 
-// Function to determine profile photo using same logic as view_profile.php
 function getProfilePhoto($user) {
     $profilePhoto = null;
     
-    // Check if recruiter with manager photo
     if ($user['role'] === 'recruiter' && !empty($user['manager_photo'])) {
         $profilePhoto = '/Public/Uploads/Manager_Photos/' . $user['manager_photo'];
     } 
-    // Check for regular profile photo
     elseif (!empty($user['photo'])) {
         $profilePhoto = '/Public/Uploads/profile_photos/' . $user['photo'];
     }
     
-    // Use default if no photo found
     if (!$profilePhoto) {
         $profilePhoto = '/Public/Assets/default-user.png';
     }
@@ -50,15 +42,12 @@ function getProfilePhoto($user) {
     return $profilePhoto;
 }
 
-// Get current user's photo URL
 $current_user_photo = getProfilePhoto($current_user);
 
-// Generate CSRF token if not exists
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// Get the final determined role
 $user_role = $_SESSION['role'];
 ?>
 <!DOCTYPE html>
