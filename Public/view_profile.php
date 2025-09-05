@@ -2,13 +2,11 @@
 session_start();
 require_once __DIR__ . '/../Config/database.php';
 
-// Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: Login.php");
     exit;
 }
 
-// Set user role if not already set
 if (!isset($_SESSION['role'])) {
     $stmt = $pdo->prepare("SELECT role FROM users WHERE id = ?");
     $stmt->execute([$_SESSION['user_id']]);
@@ -19,7 +17,6 @@ if (!isset($_SESSION['role'])) {
 $current_user_role = $_SESSION['role'];
 $profile_id = $_GET['user_id'] ?? 0;
 
-// Get profile data
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$profile_id]);
 $profile = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +28,6 @@ if (!$profile) {
 
 $is_recruiter = ($profile['role'] === 'recruiter');
 
-// Get skills for candidates
 $currentSkills = [];
 if (!$is_recruiter) {
     $stmt = $pdo->prepare("SELECT s.id, s.name FROM user_skills us JOIN skills s ON us.skill_id = s.id WHERE us.user_id = ?");
@@ -39,7 +35,6 @@ if (!$is_recruiter) {
     $currentSkills = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Get resume for candidates
 $resume = null;
 if (!$is_recruiter) {
     $stmt = $pdo->prepare("SELECT filename, uploaded_at FROM resumes WHERE user_id = ? ORDER BY uploaded_at DESC LIMIT 1");
@@ -47,7 +42,6 @@ if (!$is_recruiter) {
     $resume = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Get job offers for recruiters
 $jobOffers = [];
 if ($is_recruiter) {
     $stmt = $pdo->prepare("
@@ -60,7 +54,6 @@ if ($is_recruiter) {
     $jobOffers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Determine profile photo using same logic as Candidate_profile.php
 $profilePhoto = null;
 
 if ($is_recruiter && !empty($profile['manager_photo'])) {
@@ -69,12 +62,10 @@ if ($is_recruiter && !empty($profile['manager_photo'])) {
     $profilePhoto = '/Public/Uploads/profile_photos/' . $profile['photo'];
 }
 
-// Use default if no photo found
 if (!$profilePhoto) {
     $profilePhoto = '/Public/Assets/default-user.png';
 }
 
-// Format dates
 $resumeUploadDate = $resume ? date('F j, Y', strtotime($resume['uploaded_at'])) : null;
 $memberSince = date('F Y', strtotime($profile['created_at']));
 ?>
@@ -888,7 +879,6 @@ $memberSince = date('F Y', strtotime($profile['created_at']));
                 });
             });
 
-            // Enhanced toggle functionality with animation
             const toggleBtn = document.getElementById('toggleJobOffers');
             if (toggleBtn) {
                 toggleBtn.addEventListener('click', function() {
@@ -909,7 +899,6 @@ $memberSince = date('F Y', strtotime($profile['created_at']));
                 });
             }
 
-            // Add hover effects to all interactive elements
             document.querySelectorAll('.skill-badge, .job-offer-card, .content-box').forEach(el => {
                 el.style.transition = 'all 0.3s ease';
             });
