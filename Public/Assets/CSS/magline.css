@@ -1,6 +1,4 @@
-/* magline.css - Comprehensive Styles for Magline */
 
-/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +9,7 @@
     --primary: #3b82f6;
     --primary-dark: #2563eb;
     --secondary: #ec4899;
-    --secondary-light: #f472b6; /* Lighter pink for hover */
+    --secondary-light: #f472b6; 
     --accent: #8b5cf6;
     --bg-dark: #0a0a0a;
     --bg-darker: #050505;
@@ -32,7 +30,6 @@ body {
     position: relative;
 }
 
-/* Animated Background */
 .bg-animated {
     position: fixed;
     top: 0;
@@ -53,7 +50,6 @@ body {
     50% { opacity: 0.8; }
 }
 
-/* Floating Particles */
 .particles {
     position: fixed;
     top: 0;
