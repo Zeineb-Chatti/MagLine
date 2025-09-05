@@ -4,19 +4,16 @@ require_once __DIR__ . '/../Config/database.php';
 
 header('Content-Type: application/json');
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'error' => 'Unauthorized access']);
     exit;
 }
 
-// Only accept POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
     exit;
 }
 
-// Get JSON input
 $input = json_decode(file_get_contents('php://input'), true);
 if (empty($input['query'])) {
     echo json_encode(['success' => false, 'error' => 'Search query is required']);
@@ -64,15 +61,13 @@ try {
         $searchTerm,
         $searchTerm,
         $searchTerm,
-        $query,          // For exact match
-        $query . '%'     // For starts with
+        $query,         
+        $query . '%'     
     ]);
 
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Format results
     $formattedResults = array_map(function($user) {
-        // Determine photo path
         $photoPath = '/Public/Assets/default-user.png';
         if ($user['role'] === 'recruiter' && !empty($user['manager_photo'])) {
             $photoPath = '/Public/Uploads/Manager_Photos/' . $user['manager_photo'];
@@ -80,12 +75,10 @@ try {
             $photoPath = '/Public/Uploads/profile_photos/' . $user['photo'];
         }
         
-        // Build role badge text
         $roleBadge = ($user['role'] === 'recruiter')
             ? 'Recruiter' . (!empty($user['company_name']) ? ' at ' . $user['company_name'] : '')
             : 'Candidate';
         
-        // Only show location if available
         $locationInfo = !empty($user['location']) ? $user['location'] : '';
 
         return [
