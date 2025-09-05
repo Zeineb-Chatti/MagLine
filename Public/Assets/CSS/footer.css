@@ -17,17 +17,11 @@
     gap: 2rem; /* Reduced gap from 3rem to 2rem */
 }
 
-/* No changes needed for .footer-brand, .footer-logo, .footer-slogan */
-
 .footer-links {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem; /* Reduced gap */
 }
-
-/* No changes needed for .link-group, .link-group h4, .link-group a, .link-group a:hover */
-
-/* No changes needed for .footer-social h4, .social-icons, .social-icons a, .social-icons a:hover */
 
 .footer-bottom {
     margin-top: 2rem; /* Reduced margin-top from 3rem to 2rem */
@@ -39,13 +33,10 @@
     gap: 0.75rem; /* Reduced gap */
 }
 
-/* No changes needed for .copyright, .legal-links, .legal-links a, .legal-links a:hover, .divider */
-
-/* Responsive Design */
 @media (max-width: 992px) {
     .footer-container {
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem; /* Consistent reduction */
+        gap: 1.5rem; 
     }
     
     .footer-social {
@@ -61,7 +52,7 @@
     
     .footer-links {
         grid-template-columns: 1fr;
-        gap: 1rem; /* Consistent reduction */
+        gap: 1rem;
     }
     
     .footer-social {
